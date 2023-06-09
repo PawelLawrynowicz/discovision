@@ -1,0 +1,16 @@
+../Core/Src/stm32h7b3i_discovery_bus.c:186:9:BSP_I2C4_Init	16	static
+../Core/Src/stm32h7b3i_discovery_bus.c:237:9:BSP_I2C4_DeInit	16	static
+../Core/Src/stm32h7b3i_discovery_bus.c:265:26:MX_I2C4_Init	24	static
+../Core/Src/stm32h7b3i_discovery_bus.c:311:9:BSP_I2C4_WriteReg	40	static
+../Core/Src/stm32h7b3i_discovery_bus.c:348:9:BSP_I2C4_ReadReg	40	static
+../Core/Src/stm32h7b3i_discovery_bus.c:385:9:BSP_I2C4_WriteReg16	40	static
+../Core/Src/stm32h7b3i_discovery_bus.c:422:9:BSP_I2C4_ReadReg16	40	static
+../Core/Src/stm32h7b3i_discovery_bus.c:458:9:BSP_I2C4_IsReady	24	static
+../Core/Src/stm32h7b3i_discovery_bus.c:480:9:BSP_GetTick	8	static
+../Core/Src/stm32h7b3i_discovery_bus.c:568:17:I2C_GetTiming	32	static
+../Core/Src/stm32h7b3i_discovery_bus.c:606:13:I2C_Compute_PRESC_SCLDEL_SDADEL	64	static
+../Core/Src/stm32h7b3i_discovery_bus.c:687:17:I2C_Compute_SCLL_SCLH	80	static
+../Core/Src/stm32h7b3i_discovery_bus.c:765:13:I2C4_MspInit	48	static
+../Core/Src/stm32h7b3i_discovery_bus.c:810:13:I2C4_MspDeInit	40	static
+../Core/Src/stm32h7b3i_discovery_bus.c:836:16:I2C4_WriteReg	40	static
+../Core/Src/stm32h7b3i_discovery_bus.c:855:16:I2C4_ReadReg	40	static
