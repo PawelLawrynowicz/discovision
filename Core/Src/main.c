@@ -49,6 +49,8 @@ DMA2D_HandleTypeDef hdma2d;
 
 I2C_HandleTypeDef hi2c4;
 
+LTDC_HandleTypeDef hltdc;
+
 RTC_HandleTypeDef hrtc;
 
 UART_HandleTypeDef huart1;
@@ -58,7 +60,7 @@ UART_HandleTypeDef huart1;
 
 __IO uint32_t camera_frame_ready = 0;
 //image buffer
-uint8_t buffer[320*240*4] = {0};
+volatile uint8_t buffer[480*272*3] = {0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -68,7 +70,9 @@ static void MX_DMA_Init(void);
 static void MX_RTC_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_I2C4_Init(void);
+//static void MX_DCMI_Init(void);
 static void MX_DMA2D_Init(void);
+static void MX_LTDC_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -116,7 +120,9 @@ int main(void)
   MX_RTC_Init();
   MX_USART1_UART_Init();
   MX_I2C4_Init();
+  //MX_DCMI_Init();
   MX_DMA2D_Init();
+  MX_LTDC_Init();
   /* USER CODE BEGIN 2 */
   RetargetInit(&huart1);
 
@@ -124,33 +130,76 @@ int main(void)
   //camera init
   BSP_CAMERA_PwrDown(0);
 
-  if(BSP_CAMERA_Init(0, CAMERA_R320x240, CAMERA_PF_RGB565) != BSP_ERROR_NONE){
+  if(BSP_CAMERA_Init(0, CAMERA_R480x272, CAMERA_PF_RGB888) != BSP_ERROR_NONE){
 	  Error_Handler();
   }
 
   HAL_Delay(2000);
+//  buffer[5460] = 255;
+  LTDC_LayerCfgTypeDef pLayerCfg = {0};
 
-  BSP_CAMERA_Start(0, (uint8_t*)buffer, CAMERA_MODE_SNAPSHOT);
-
-  printf("BUFFER RANDOM VALUE AFTER CAPTURE: %d\n", buffer[5640]);
-  while(camera_frame_ready == 0){
-
+  pLayerCfg.WindowX0 = 0;
+  pLayerCfg.WindowX1 = 480;
+  pLayerCfg.WindowY0 = 0;
+  pLayerCfg.WindowY1 = 272;
+  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB888;
+  pLayerCfg.Alpha = 255;
+  pLayerCfg.Alpha0 = 0;
+  pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
+  pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
+  pLayerCfg.FBStartAdress = (uint32_t) buffer;
+  pLayerCfg.ImageWidth = 480;
+  pLayerCfg.ImageHeight = 272;
+  pLayerCfg.Backcolor.Blue = 0;
+  pLayerCfg.Backcolor.Green = 0;
+  pLayerCfg.Backcolor.Red = 255;
+  if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK)
+  {
+    Error_Handler();
   }
 
-  BSP_CAMERA_Stop(0);
+//  o Call BSP_CAMERA_SetLightMode()/BSP_CAMERA_GetLightMode() to set/get the camera light mode
+//         LightMode: - CAMERA_LIGHT_AUTO
+//                    - CAMERA_LIGHT_SUNNY
+//                    - CAMERA_LIGHT_OFFICE
+//                    - CAMERA_LIGHT_HOME
+//                    - CAMERA_LIGHT_CLOUDY
+//
+//       o Call BSP_CAMERA_SetColorEffect()/BSP_CAMERA_GetColorEffect() to set/get the camera color effects
+//         Effect: - CAMERA_COLOR_EFFECT_NONE
+//                 - CAMERA_COLOR_EFFECT_BLUE
+//                 - CAMERA_COLOR_EFFECT_RED
+//                 - CAMERA_COLOR_EFFECT_GREEN
+//                 - CAMERA_COLOR_EFFECT_BW
+//                 - CAMERA_COLOR_EFFECT_SEPIA
+//                 - CAMERA_COLOR_EFFECT_NEGATIVE
+//
+//      o Call BSP_CAMERA_SetBrightness()/BSP_CAMERA_GetBrightness() to set/get the camera Brightness
+//        Brightness is value between -4(Level 4 negative) and 4(Level 4 positive).
+//
+//      o Call BSP_CAMERA_SetSaturation()/BSP_CAMERA_GetSaturation() to set/get the camera Saturation
+//        Saturation is value between -4(Level 4 negative) and 4(Level 4 positive).
+//
+//      o Call BSP_CAMERA_SetContrast()/BSP_CAMERA_GetContrast() to set/get the camera Contrast
+//        Contrast is value between -4(Level 4 negative) and 4(Level 4 positive).
+//
+//      o Call BSP_CAMERA_SetHueDegree()/BSP_CAMERA_GetHueDegree() to set/get the camera Hue Degree
+//        HueDegree is value between -4(180 degree negative) and 4(150 degree positive).
+	BSP_CAMERA_SetLightMode(0, CAMERA_LIGHT_HOME);
+	BSP_CAMERA_SetColorEffect(0, CAMERA_COLOR_EFFECT_NONE);
+	BSP_CAMERA_SetHueDegree(0, 4);
+//  while(camera_frame_ready == 0){
+//
+//  }
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+  BSP_CAMERA_Start(0, (uint8_t*)buffer, CAMERA_MODE_CONTINUOUS);
 
   while (1)
   {
-	  printf("BUFFER RANDOM VALUE AFTER CAPTURE: %d\n", buffer[5640]);
-	  //uint16_t chip_id_reg = 0x300B;
-	  //printf("Register %x has value %x\n", chip_id_reg, read_register(chip_id_reg));
-	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -193,14 +242,14 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 12;
-  RCC_OscInitStruct.PLL.PLLN = 280;
+  RCC_OscInitStruct.PLL.PLLM = 2;
+  RCC_OscInitStruct.PLL.PLLN = 40;
   RCC_OscInitStruct.PLL.PLLP = 2;
   RCC_OscInitStruct.PLL.PLLQ = 3;
   RCC_OscInitStruct.PLL.PLLR = 4;
-  RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_1;
+  RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
-  RCC_OscInitStruct.PLL.PLLFRACN = 0;
+  RCC_OscInitStruct.PLL.PLLFRACN = 5462;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -213,13 +262,13 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_D3PCLK1|RCC_CLOCKTYPE_D1PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
   RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
   {
     Error_Handler();
   }
@@ -231,6 +280,7 @@ void SystemClock_Config(void)
   * @param None
   * @retval None
   */
+
 
 /**
   * @brief DMA2D Initialization Function
@@ -288,7 +338,7 @@ static void MX_I2C4_Init(void)
 
   /* USER CODE END I2C4_Init 1 */
   hi2c4.Instance = I2C4;
-  hi2c4.Init.Timing = 0xC010151E;
+  hi2c4.Init.Timing = 0x307077B4;
   hi2c4.Init.OwnAddress1 = 0;
   hi2c4.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c4.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -317,6 +367,68 @@ static void MX_I2C4_Init(void)
   /* USER CODE BEGIN I2C4_Init 2 */
 
   /* USER CODE END I2C4_Init 2 */
+
+}
+
+/**
+  * @brief LTDC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_LTDC_Init(void)
+{
+
+  /* USER CODE BEGIN LTDC_Init 0 */
+
+  /* USER CODE END LTDC_Init 0 */
+
+  LTDC_LayerCfgTypeDef pLayerCfg = {0};
+
+  /* USER CODE BEGIN LTDC_Init 1 */
+
+  /* USER CODE END LTDC_Init 1 */
+  hltdc.Instance = LTDC;
+  hltdc.Init.HSPolarity = LTDC_HSPOLARITY_AL;
+  hltdc.Init.VSPolarity = LTDC_VSPOLARITY_AL;
+  hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AH;
+  hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
+  hltdc.Init.HorizontalSync = 7;
+  hltdc.Init.VerticalSync = 3;
+  hltdc.Init.AccumulatedHBP = 14;
+  hltdc.Init.AccumulatedVBP = 5;
+  hltdc.Init.AccumulatedActiveW = 654;
+  hltdc.Init.AccumulatedActiveH = 485;
+  hltdc.Init.TotalWidth = 660;
+  hltdc.Init.TotalHeigh = 487;
+  hltdc.Init.Backcolor.Blue = 0;
+  hltdc.Init.Backcolor.Green = 0;
+  hltdc.Init.Backcolor.Red = 0;
+  if (HAL_LTDC_Init(&hltdc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  pLayerCfg.WindowX0 = 0;
+  pLayerCfg.WindowX1 = 320;
+  pLayerCfg.WindowY0 = 0;
+  pLayerCfg.WindowY1 = 240;
+  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
+  pLayerCfg.Alpha = 0;
+  pLayerCfg.Alpha0 = 0;
+  pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
+  pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
+  pLayerCfg.FBStartAdress = 0;
+  pLayerCfg.ImageWidth = 0;
+  pLayerCfg.ImageHeight = 0;
+  pLayerCfg.Backcolor.Blue = 0;
+  pLayerCfg.Backcolor.Green = 0;
+  pLayerCfg.Backcolor.Red = 0;
+  if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN LTDC_Init 2 */
+
+  /* USER CODE END LTDC_Init 2 */
 
 }
 
@@ -475,16 +587,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LCD_B6_Pin LCD_B7_Pin LCD_B4_Pin LCD_B5_Pin
-                           LCD_DE_Pin LCD_G7_Pin LCD_G6_Pin LCD_G5_Pin */
-  GPIO_InitStruct.Pin = LCD_B6_Pin|LCD_B7_Pin|LCD_B4_Pin|LCD_B5_Pin
-                          |LCD_DE_Pin|LCD_G7_Pin|LCD_G6_Pin|LCD_G5_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF14_LTDC;
-  HAL_GPIO_Init(GPIOK, &GPIO_InitStruct);
-
   /*Configure GPIO pins : I2S6_SDO_Pin I2S6_SDI_Pin I2S6_CK_Pin */
   GPIO_InitStruct.Pin = I2S6_SDO_Pin|I2S6_SDI_Pin|I2S6_CK_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -555,20 +657,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LCD_B3_Pin LCD_B2_Pin LCD_B1_Pin LCD_B0_Pin
-                           LCD_G4_Pin LCD_G3_Pin LCD_G2_Pin LCD_G1_Pin
-                           LCD_R7_Pin LCD_G0_Pin LCD_R1_Pin LCD_R6_Pin
-                           LCD_R2_Pin LCD_R5_Pin LCD_R3_Pin LCD_R4_Pin */
-  GPIO_InitStruct.Pin = LCD_B3_Pin|LCD_B2_Pin|LCD_B1_Pin|LCD_B0_Pin
-                          |LCD_G4_Pin|LCD_G3_Pin|LCD_G2_Pin|LCD_G1_Pin
-                          |LCD_R7_Pin|LCD_G0_Pin|LCD_R1_Pin|LCD_R6_Pin
-                          |LCD_R2_Pin|LCD_R5_Pin|LCD_R3_Pin|LCD_R4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF14_LTDC;
-  HAL_GPIO_Init(GPIOJ, &GPIO_InitStruct);
-
   /*Configure GPIO pin : SDIO1_CMD_Pin */
   GPIO_InitStruct.Pin = SDIO1_CMD_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -631,14 +719,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF10_OCTOSPIM_P1;
   HAL_GPIO_Init(OCSPI1_NCS_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LCD_HSYNC_Pin LCD_CLK_Pin LCD_VSYNC_Pin LCD_R0_Pin */
-  GPIO_InitStruct.Pin = LCD_HSYNC_Pin|LCD_CLK_Pin|LCD_VSYNC_Pin|LCD_R0_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF14_LTDC;
-  HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
 
   /*Configure GPIO pins : SPI2_MISO_Pin SPI2_MOSI_Pin */
   GPIO_InitStruct.Pin = SPI2_MISO_Pin|SPI2_MOSI_Pin;

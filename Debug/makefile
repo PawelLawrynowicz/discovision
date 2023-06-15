@@ -60,8 +60,8 @@ all: main-build
 main-build: camera_bsp_driver.elf secondary-outputs
 
 # Tool invocations
-camera_bsp_driver.elf camera_bsp_driver.map: $(OBJS) $(USER_OBJS) /home/pwl/Projects/camera_basic_com/STM32H7B3LIHXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "camera_bsp_driver.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/home/pwl/Projects/camera_basic_com/STM32H7B3LIHXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="camera_bsp_driver.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+camera_bsp_driver.elf camera_bsp_driver.map: $(OBJS) $(USER_OBJS) /home/pwl/Projects/stm32h7b3i-dk-bsp-camera-minimal-working-example/STM32H7B3LIHXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "camera_bsp_driver.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/home/pwl/Projects/stm32h7b3i-dk-bsp-camera-minimal-working-example/STM32H7B3LIHXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="camera_bsp_driver.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

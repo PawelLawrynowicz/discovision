@@ -130,6 +130,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7b3i_discovery_camera.h"
 #include "stm32h7b3i_discovery_bus.h"
+#include <stdio.h>
 //#include "stm32h7b3i_discovery_io.h"
 
 
@@ -466,6 +467,7 @@ int32_t BSP_CAMERA_RegisterMspCallbacks(uint32_t Instance, BSP_CAMERA_Cb_t *Call
   */
 int32_t BSP_CAMERA_Start(uint32_t Instance, uint8_t *pBff, uint32_t Mode)
 {
+  printf("BSP_CAMERA_START_BEGIN\n");
   int32_t ret;
 
   if(Instance >= CAMERA_INSTANCES_NBR)
@@ -1470,7 +1472,7 @@ void HAL_DCMI_LineEventCallback(DCMI_HandleTypeDef *hdcmi)
   * @retval None
   */
 void HAL_DCMI_FrameEventCallback(DCMI_HandleTypeDef *hdcmi)
-{
+ {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hdcmi);
 
@@ -1562,6 +1564,7 @@ static int32_t GetSize(uint32_t Resolution, uint32_t PixelFormat)
   */
 static void DCMI_MspInit(DCMI_HandleTypeDef *hdcmi)
 {
+  printf("Initializing DCMI\n");
   static DMA_HandleTypeDef hdma_handler;
   GPIO_InitTypeDef gpio_init_structure;
 
@@ -1577,12 +1580,25 @@ static void DCMI_MspInit(DCMI_HandleTypeDef *hdcmi)
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOG_CLK_ENABLE();
+
+  /*
+ 	 PA4	--->	DCMI_HSYNC
+ 	 PA6	--->	DCMI_PIXCLK
+ 	 PB7	--->	DCMI_VSYNC
+ 	 PB8	--->	DCMI_D6
+	 PB9	--->	DCMI_D7
+ 	 PC6	--->	DCMI_D0
+ 	 PC7	--->	DCMI_D1
+ 	 PC9	--->	DCMI_D3
+ 	 PC11	--->	DCMI_D4
+ 	 PD3	--->	DCMI_D5
+ 	 PG10	--->	DCMI_D2
+   */
 
   /* Configure DCMI GPIO as alternate function */
   /* DCMI PIXCLK and HSYNC pins */
-  gpio_init_structure.Pin       = GPIO_PIN_6 | GPIO_PIN_4;
+  gpio_init_structure.Pin       = GPIO_PIN_4 | GPIO_PIN_6;
   gpio_init_structure.Mode      = GPIO_MODE_AF_PP;
   gpio_init_structure.Pull      = GPIO_PULLUP;
   gpio_init_structure.Speed     = GPIO_SPEED_FREQ_VERY_HIGH;
@@ -1590,24 +1606,20 @@ static void DCMI_MspInit(DCMI_HandleTypeDef *hdcmi)
   HAL_GPIO_Init(GPIOA, &gpio_init_structure);
 
   /* DCMI D0, D1 pins */
-  gpio_init_structure.Pin       = GPIO_PIN_6 | GPIO_PIN_7;
-  HAL_GPIO_Init(GPIOC, &gpio_init_structure);
+  gpio_init_structure.Pin       = GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9;
+  HAL_GPIO_Init(GPIOB, &gpio_init_structure);
 
   /* DCMI VSYNC, D2, D3 pins */
-  gpio_init_structure.Pin       = GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11;
-  HAL_GPIO_Init(GPIOG, &gpio_init_structure);
-
-  /* DCMI D4 pins */
-  gpio_init_structure.Pin       = GPIO_PIN_4;
-  HAL_GPIO_Init(GPIOE, &gpio_init_structure);
+  gpio_init_structure.Pin       = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_9 | GPIO_PIN_11;
+  HAL_GPIO_Init(GPIOC, &gpio_init_structure);
 
   /* DCMI D5 pins */
   gpio_init_structure.Pin       = GPIO_PIN_3;
   HAL_GPIO_Init(GPIOD, &gpio_init_structure);
 
   /* DCMI D6, D7 pins */
-  gpio_init_structure.Pin       = GPIO_PIN_8 | GPIO_PIN_9;
-  HAL_GPIO_Init(GPIOB, &gpio_init_structure);
+  gpio_init_structure.Pin       = GPIO_PIN_10;
+  HAL_GPIO_Init(GPIOG, &gpio_init_structure);
 
   /*** Configure the DMA ***/
   /* Set the parameters to be configured */
@@ -1640,6 +1652,7 @@ static void DCMI_MspInit(DCMI_HandleTypeDef *hdcmi)
 
   /* Configure the DMA stream */
   (void)HAL_DMA_Init(hdcmi->DMA_Handle);
+  printf("DCMI Initialized\n");
 }
 
 /**
