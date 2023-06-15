@@ -119,8 +119,6 @@ void Error_Handler(void);
 #define I2S6_CK_GPIO_Port GPIOG
 #define LCD_B1_Pin GPIO_PIN_13
 #define LCD_B1_GPIO_Port GPIOJ
-#define SDIO1_D3_Pin GPIO_PIN_11
-#define SDIO1_D3_GPIO_Port GPIOC
 #define WIFI_WKUP_Pin GPIO_PIN_2
 #define WIFI_WKUP_GPIO_Port GPIOI
 #define LCD_B0_Pin GPIO_PIN_12
@@ -131,8 +129,6 @@ void Error_Handler(void);
 #define JTMS_GPIO_Port GPIOA
 #define VCP_RX_Pin GPIO_PIN_10
 #define VCP_RX_GPIO_Port GPIOA
-#define SDIO1_D1_Pin GPIO_PIN_9
-#define SDIO1_D1_GPIO_Port GPIOC
 #define WAKEUP_Pin GPIO_PIN_13
 #define WAKEUP_GPIO_Port GPIOC
 #define VCP_TX_Pin GPIO_PIN_9

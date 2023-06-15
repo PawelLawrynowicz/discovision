@@ -378,6 +378,11 @@ __weak HAL_StatusTypeDef MX_DCMI_Init(DCMI_HandleTypeDef* hdcmi)
   hdcmi->Init.ExtendedDataMode = DCMI_EXTEND_DATA_8B;
   hdcmi->Init.PCKPolarity      = DCMI_PCKPOLARITY_RISING;
 
+  hdcmi->Init.ByteSelectMode   = DCMI_BSM_ALL;
+  hdcmi->Init.ByteSelectStart  = DCMI_OEBS_ODD;
+  hdcmi->Init.LineSelectMode   = DCMI_LSM_ALL;
+  hdcmi->Init.LineSelectStart  = DCMI_OELS_ODD;
+
   if(HAL_DCMI_Init(hdcmi) != HAL_OK)
   {
     return HAL_ERROR;
@@ -467,7 +472,6 @@ int32_t BSP_CAMERA_RegisterMspCallbacks(uint32_t Instance, BSP_CAMERA_Cb_t *Call
   */
 int32_t BSP_CAMERA_Start(uint32_t Instance, uint8_t *pBff, uint32_t Mode)
 {
-  printf("BSP_CAMERA_START_BEGIN\n");
   int32_t ret;
 
   if(Instance >= CAMERA_INSTANCES_NBR)
@@ -1564,7 +1568,6 @@ static int32_t GetSize(uint32_t Resolution, uint32_t PixelFormat)
   */
 static void DCMI_MspInit(DCMI_HandleTypeDef *hdcmi)
 {
-  printf("Initializing DCMI\n");
   static DMA_HandleTypeDef hdma_handler;
   GPIO_InitTypeDef gpio_init_structure;
 
@@ -1652,7 +1655,6 @@ static void DCMI_MspInit(DCMI_HandleTypeDef *hdcmi)
 
   /* Configure the DMA stream */
   (void)HAL_DMA_Init(hdcmi->DMA_Handle);
-  printf("DCMI Initialized\n");
 }
 
 /**
