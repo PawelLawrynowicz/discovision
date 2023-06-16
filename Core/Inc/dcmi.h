@@ -38,7 +38,7 @@ extern DCMI_HandleTypeDef hdcmi;
 
 /* USER CODE END Private defines */
 
-//void MX_DCMI_Init(void);
+void MX_DCMI_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 

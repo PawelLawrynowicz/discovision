@@ -131,6 +131,7 @@
 #include "stm32h7b3i_discovery_camera.h"
 #include "stm32h7b3i_discovery_bus.h"
 #include <stdio.h>
+#include "dcmi.h"
 //#include "stm32h7b3i_discovery_io.h"
 
 
@@ -150,7 +151,6 @@
   * @{
   */
 void                *Camera_CompObj = NULL;
-DCMI_HandleTypeDef  hcamera_dcmi;
 CAMERA_Ctx_t        Camera_Ctx[CAMERA_INSTANCES_NBR];
 /**
   * @}
@@ -169,8 +169,8 @@ static CAMERA_Capabilities_t *Camera_Cap;
   * @{
   */
 static int32_t GetSize(uint32_t Resolution, uint32_t PixelFormat);
-static void DCMI_MspInit(DCMI_HandleTypeDef *hdcmi);
-static void DCMI_MspDeInit(DCMI_HandleTypeDef *hdcmi);
+//static void DCMI_MspInit(DCMI_HandleTypeDef *hdcmi);
+//static void DCMI_MspDeInit(DCMI_HandleTypeDef *hdcmi);
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
 static void DCMI_LineEventCallback(DCMI_HandleTypeDef *hdcmi);
 static void DCMI_FrameEventCallback(DCMI_HandleTypeDef *hdcmi);
@@ -226,14 +226,12 @@ int32_t BSP_CAMERA_Init(uint32_t Instance, uint32_t Resolution, uint32_t PixelFo
     }
 #else
     /* DCMI Initialization */
-    DCMI_MspInit(&hcamera_dcmi);
+    HAL_DCMI_MspInit(&hdcmi);
 #endif
     /* Initialize the camera driver structure */
-    if(MX_DCMI_Init(&hcamera_dcmi) != HAL_OK)
-    {
-      ret = BSP_ERROR_PERIPH_FAILURE;
-    }
-    else if(BSP_CAMERA_HwReset(0) != BSP_ERROR_NONE)
+    MX_DCMI_Init();
+
+    if(BSP_CAMERA_HwReset(0) != BSP_ERROR_NONE)
     {
       ret = BSP_ERROR_BUS_FAILURE;
     }
@@ -278,19 +276,19 @@ int32_t BSP_CAMERA_Init(uint32_t Instance, uint32_t Resolution, uint32_t PixelFo
         {
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
           /* Register DCMI LineEvent, FrameEvent and Error callbacks */
-          if(HAL_DCMI_RegisterCallback(&hcamera_dcmi, HAL_DCMI_LINE_EVENT_CB_ID, DCMI_LineEventCallback) != HAL_OK)
+          if(HAL_DCMI_RegisterCallback(&hdcmi, HAL_DCMI_LINE_EVENT_CB_ID, DCMI_LineEventCallback) != HAL_OK)
           {
             ret = BSP_ERROR_PERIPH_FAILURE;
           }
-          else if(HAL_DCMI_RegisterCallback(&hcamera_dcmi, HAL_DCMI_FRAME_EVENT_CB_ID, DCMI_FrameEventCallback) != HAL_OK)
+          else if(HAL_DCMI_RegisterCallback(&hdcmi, HAL_DCMI_FRAME_EVENT_CB_ID, DCMI_FrameEventCallback) != HAL_OK)
           {
             ret = BSP_ERROR_PERIPH_FAILURE;
           }
-          else if(HAL_DCMI_RegisterCallback(&hcamera_dcmi, HAL_DCMI_VSYNC_EVENT_CB_ID, DCMI_VsyncEventCallback) != HAL_OK)
+          else if(HAL_DCMI_RegisterCallback(&hdcmi, HAL_DCMI_VSYNC_EVENT_CB_ID, DCMI_VsyncEventCallback) != HAL_OK)
           {
             ret = BSP_ERROR_PERIPH_FAILURE;
           }
-          else if(HAL_DCMI_RegisterCallback(&hcamera_dcmi, HAL_DCMI_ERROR_CB_ID, DCMI_ErrorCallback) != HAL_OK)
+          else if(HAL_DCMI_RegisterCallback(&hdcmi, HAL_DCMI_ERROR_CB_ID, DCMI_ErrorCallback) != HAL_OK)
           {
             ret = BSP_ERROR_PERIPH_FAILURE;
           }
@@ -327,21 +325,21 @@ int32_t BSP_CAMERA_DeInit(uint32_t Instance)
   }
   else
   {
-    hcamera_dcmi.Instance = DCMI;
+    hdcmi.Instance = DCMI;
 
     /* First stop the camera to insure all data are transferred */
     if(BSP_CAMERA_Stop(Instance) != BSP_ERROR_NONE)
     {
       ret = BSP_ERROR_PERIPH_FAILURE;
     }
-    else if(HAL_DCMI_DeInit(&hcamera_dcmi) != HAL_OK)
+    else if(HAL_DCMI_DeInit(&hdcmi) != HAL_OK)
     {
       ret = BSP_ERROR_PERIPH_FAILURE;
     }
     else
     {
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 0)
-      DCMI_MspDeInit(&hcamera_dcmi);
+      HAL_DCMI_MspDeInit(&hdcmi);
 #endif /* (USE_HAL_DCMI_REGISTER_CALLBACKS == 0) */
 
       /* Set Camera in Power Down */
@@ -366,29 +364,7 @@ int32_t BSP_CAMERA_DeInit(uint32_t Instance)
   * @note   Being __weak it can be overwritten by the application
   * @retval HAL status
   */
-__weak HAL_StatusTypeDef MX_DCMI_Init(DCMI_HandleTypeDef* hdcmi)
-{
-  /*** Configures the DCMI to interface with the camera module ***/
-  /* DCMI configuration */
-  hdcmi->Instance              = DCMI;
-  hdcmi->Init.CaptureRate      = DCMI_CR_ALL_FRAME;
-  hdcmi->Init.HSPolarity       = DCMI_HSPOLARITY_HIGH;
-  hdcmi->Init.SynchroMode      = DCMI_SYNCHRO_HARDWARE;
-  hdcmi->Init.VSPolarity       = DCMI_VSPOLARITY_HIGH;
-  hdcmi->Init.ExtendedDataMode = DCMI_EXTEND_DATA_8B;
-  hdcmi->Init.PCKPolarity      = DCMI_PCKPOLARITY_RISING;
 
-  hdcmi->Init.ByteSelectMode   = DCMI_BSM_ALL;
-  hdcmi->Init.ByteSelectStart  = DCMI_OEBS_ODD;
-  hdcmi->Init.LineSelectMode   = DCMI_LSM_ALL;
-  hdcmi->Init.LineSelectStart  = DCMI_OELS_ODD;
-
-  if(HAL_DCMI_Init(hdcmi) != HAL_OK)
-  {
-    return HAL_ERROR;
-  }
-  return HAL_OK;
-}
 
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
 /**
@@ -406,14 +382,14 @@ int32_t BSP_CAMERA_RegisterDefaultMspCallbacks (uint32_t Instance)
   }
   else
   {
-    __HAL_DCMI_RESET_HANDLE_STATE(&hcamera_dcmi);
+    __HAL_DCMI_RESET_HANDLE_STATE(&hdcmi);
 
     /* Register MspInit/MspDeInit Callbacks */
-    if(HAL_DCMI_RegisterCallback(&hcamera_dcmi, HAL_DCMI_MSPINIT_CB_ID, DCMI_MspInit) != HAL_OK)
+    if(HAL_DCMI_RegisterCallback(&hdcmi, HAL_DCMI_MSPINIT_CB_ID, DCMI_MspInit) != HAL_OK)
     {
       ret = BSP_ERROR_PERIPH_FAILURE;
     }
-    else if(HAL_DCMI_RegisterCallback(&hcamera_dcmi, HAL_DCMI_MSPDEINIT_CB_ID, DCMI_MspDeInit) != HAL_OK)
+    else if(HAL_DCMI_RegisterCallback(&hdcmi, HAL_DCMI_MSPDEINIT_CB_ID, DCMI_MspDeInit) != HAL_OK)
     {
       ret = BSP_ERROR_PERIPH_FAILURE;
     }
@@ -442,14 +418,14 @@ int32_t BSP_CAMERA_RegisterMspCallbacks(uint32_t Instance, BSP_CAMERA_Cb_t *Call
   }
   else
   {
-    __HAL_DCMI_RESET_HANDLE_STATE(&hcamera_dcmi);
+    __HAL_DCMI_RESET_HANDLE_STATE(&hdcmi);
 
     /* Register MspInit/MspDeInit Callbacks */
-    if(HAL_DCMI_RegisterCallback(&hcamera_dcmi, HAL_DCMI_MSPINIT_CB_ID, CallBacks->pMspInitCb) != HAL_OK)
+    if(HAL_DCMI_RegisterCallback(&hdcmi, HAL_DCMI_MSPINIT_CB_ID, CallBacks->pMspInitCb) != HAL_OK)
     {
       ret = BSP_ERROR_PERIPH_FAILURE;
     }
-    else if(HAL_DCMI_RegisterCallback(&hcamera_dcmi, HAL_DCMI_MSPDEINIT_CB_ID, CallBacks->pMspDeInitCb) != HAL_OK)
+    else if(HAL_DCMI_RegisterCallback(&hdcmi, HAL_DCMI_MSPDEINIT_CB_ID, CallBacks->pMspDeInitCb) != HAL_OK)
     {
       ret = BSP_ERROR_PERIPH_FAILURE;
     }
@@ -478,7 +454,7 @@ int32_t BSP_CAMERA_Start(uint32_t Instance, uint8_t *pBff, uint32_t Mode)
   {
     ret = BSP_ERROR_WRONG_PARAM;
   }
-  else if(HAL_DCMI_Start_DMA(&hcamera_dcmi, Mode, (uint32_t)pBff, (uint32_t)GetSize(Camera_Ctx[Instance].Resolution, Camera_Ctx[Instance].PixelFormat)) != HAL_OK)
+  else if(HAL_DCMI_Start_DMA(&hdcmi, Mode, (uint32_t)pBff, (uint32_t)GetSize(Camera_Ctx[Instance].Resolution, Camera_Ctx[Instance].PixelFormat)) != HAL_OK)
   {
     return BSP_ERROR_PERIPH_FAILURE;
   }
@@ -504,7 +480,7 @@ int32_t BSP_CAMERA_Stop(uint32_t Instance)
   {
     ret = BSP_ERROR_WRONG_PARAM;
   }
-  else if(HAL_DCMI_Stop(&hcamera_dcmi) != HAL_OK)
+  else if(HAL_DCMI_Stop(&hdcmi) != HAL_OK)
   {
     ret = BSP_ERROR_PERIPH_FAILURE;
   }
@@ -529,7 +505,7 @@ int32_t BSP_CAMERA_Suspend(uint32_t Instance)
   {
     ret = BSP_ERROR_WRONG_PARAM;
   }
-  else if(HAL_DCMI_Suspend(&hcamera_dcmi) != HAL_OK)
+  else if(HAL_DCMI_Suspend(&hdcmi) != HAL_OK)
   {
     return BSP_ERROR_PERIPH_FAILURE;
   }
@@ -554,7 +530,7 @@ int32_t BSP_CAMERA_Resume(uint32_t Instance)
   {
     ret = BSP_ERROR_WRONG_PARAM;
   }
-  else if(HAL_DCMI_Resume(&hcamera_dcmi) != HAL_OK)
+  else if(HAL_DCMI_Resume(&hdcmi) != HAL_OK)
   {
     ret = BSP_ERROR_PERIPH_FAILURE;
   }
@@ -1380,7 +1356,7 @@ void BSP_CAMERA_IRQHandler(uint32_t Instance)
   /* Prevent unused argument(s) compilation warning */
   UNUSED(Instance);
 
-  HAL_DCMI_IRQHandler(&hcamera_dcmi);
+  HAL_DCMI_IRQHandler(&hdcmi);
 }
 
 /**
@@ -1393,7 +1369,7 @@ void BSP_CAMERA_DMA_IRQHandler(uint32_t Instance)
   /* Prevent unused argument(s) compilation warning */
   UNUSED(Instance);
 
-  HAL_DMA_IRQHandler(hcamera_dcmi.DMA_Handle);
+  HAL_DMA_IRQHandler(hdcmi.DMA_Handle);
 }
 
 /**
@@ -1566,148 +1542,6 @@ static int32_t GetSize(uint32_t Resolution, uint32_t PixelFormat)
   * @param  hdcmi  DCMI handle
   * @retval None
   */
-static void DCMI_MspInit(DCMI_HandleTypeDef *hdcmi)
-{
-  static DMA_HandleTypeDef hdma_handler;
-  GPIO_InitTypeDef gpio_init_structure;
-
-  /*** Enable peripherals and GPIO clocks ***/
-  /* Enable DCMI clock */
-  __HAL_RCC_DCMI_CLK_ENABLE();
-
-  /* Enable DMA2 clock */
-  __HAL_RCC_DMA2_CLK_ENABLE();
-
-  /* Enable GPIO clocks */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOG_CLK_ENABLE();
-
-  /*
- 	 PA4	--->	DCMI_HSYNC
- 	 PA6	--->	DCMI_PIXCLK
- 	 PB7	--->	DCMI_VSYNC
- 	 PB8	--->	DCMI_D6
-	 PB9	--->	DCMI_D7
- 	 PC6	--->	DCMI_D0
- 	 PC7	--->	DCMI_D1
- 	 PC9	--->	DCMI_D3
- 	 PC11	--->	DCMI_D4
- 	 PD3	--->	DCMI_D5
- 	 PG10	--->	DCMI_D2
-   */
-
-  /* Configure DCMI GPIO as alternate function */
-  /* DCMI PIXCLK and HSYNC pins */
-  gpio_init_structure.Pin       = GPIO_PIN_4 | GPIO_PIN_6;
-  gpio_init_structure.Mode      = GPIO_MODE_AF_PP;
-  gpio_init_structure.Pull      = GPIO_PULLUP;
-  gpio_init_structure.Speed     = GPIO_SPEED_FREQ_VERY_HIGH;
-  gpio_init_structure.Alternate = GPIO_AF13_DCMI;
-  HAL_GPIO_Init(GPIOA, &gpio_init_structure);
-
-  /* DCMI D0, D1 pins */
-  gpio_init_structure.Pin       = GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9;
-  HAL_GPIO_Init(GPIOB, &gpio_init_structure);
-
-  /* DCMI VSYNC, D2, D3 pins */
-  gpio_init_structure.Pin       = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_9 | GPIO_PIN_11;
-  HAL_GPIO_Init(GPIOC, &gpio_init_structure);
-
-  /* DCMI D5 pins */
-  gpio_init_structure.Pin       = GPIO_PIN_3;
-  HAL_GPIO_Init(GPIOD, &gpio_init_structure);
-
-  /* DCMI D6, D7 pins */
-  gpio_init_structure.Pin       = GPIO_PIN_10;
-  HAL_GPIO_Init(GPIOG, &gpio_init_structure);
-
-  /*** Configure the DMA ***/
-  /* Set the parameters to be configured */
-  hdma_handler.Init.Request             = DMA_REQUEST_DCMI_PSSI;
-  hdma_handler.Init.Direction           = DMA_PERIPH_TO_MEMORY;
-  hdma_handler.Init.PeriphInc           = DMA_PINC_DISABLE;
-  hdma_handler.Init.MemInc              = DMA_MINC_ENABLE;
-  hdma_handler.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-  hdma_handler.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD;
-  hdma_handler.Init.Mode                = DMA_CIRCULAR;
-  hdma_handler.Init.Priority            = DMA_PRIORITY_HIGH;
-  hdma_handler.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;
-  hdma_handler.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
-  hdma_handler.Init.MemBurst            = DMA_MBURST_SINGLE;
-  hdma_handler.Init.PeriphBurst         = DMA_PBURST_SINGLE;
-
-  hdma_handler.Instance = DMA2_Stream1;
-
-  /* Associate the initialized DMA handle to the DCMI handle */
-  __HAL_LINKDMA(hdcmi, DMA_Handle, hdma_handler);
-
-  /*** Configure the NVIC for DCMI and DMA ***/
-  /* NVIC configuration for DCMI transfer complete interrupt */
-  HAL_NVIC_SetPriority(DCMI_IRQn, BSP_CAMERA_IT_PRIORITY, 0);
-  HAL_NVIC_EnableIRQ(DCMI_IRQn);
-
-  /* NVIC configuration for DMA2D transfer complete interrupt */
-  HAL_NVIC_SetPriority(DMA2_Stream1_IRQn, BSP_CAMERA_IT_PRIORITY, 0);
-  HAL_NVIC_EnableIRQ(DMA2_Stream1_IRQn);
-
-  /* Configure the DMA stream */
-  (void)HAL_DMA_Init(hdcmi->DMA_Handle);
-}
-
-/**
-  * @brief  DeInitializes the DCMI MSP.
-  * @param  hdcmi  DCMI handle
-  * @retval None
-  */
-static void DCMI_MspDeInit(DCMI_HandleTypeDef *hdcmi)
-{
-  GPIO_InitTypeDef gpio_init_structure;
-
-  /* Disable NVIC  for DCMI transfer complete interrupt */
-  HAL_NVIC_DisableIRQ(DCMI_IRQn);
-
-  /* Disable NVIC for DMA2 transfer complete interrupt */
-  HAL_NVIC_DisableIRQ(DMA2_Stream1_IRQn);
-
-  /* Configure the DMA stream */
-  (void)HAL_DMA_DeInit(hdcmi->DMA_Handle);
-
-  /*
- 	 PA4	--->	DCMI_HSYNC
- 	 PA6	--->	DCMI_PIXCLK
- 	 PB8	--->	DCMI_D6
- 	 PB7	--->	DCMI_VSYNC
-	 PB9	--->	DCMI_D7
- 	 PC6	--->	DCMI_D0
- 	 PC7	--->	DCMI_D1
- 	 PC9	--->	DCMI_D3
- 	 PC11	--->	DCMI_D4
- 	 PD3	--->	DCMI_D5
- 	 PG10	--->	DCMI_D2
-   */
-
-  /* DeInit DCMI GPIOs */
-  gpio_init_structure.Pin       = GPIO_PIN_4 | GPIO_PIN_6;
-  HAL_GPIO_DeInit(GPIOA, gpio_init_structure.Pin);
-
-  gpio_init_structure.Pin       = GPIO_PIN_8 | GPIO_PIN_7 | GPIO_PIN_9;
-  HAL_GPIO_DeInit(GPIOB, gpio_init_structure.Pin);
-
-  gpio_init_structure.Pin       = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_9 | GPIO_PIN_11;
-  HAL_GPIO_DeInit(GPIOC, gpio_init_structure.Pin);
-
-  gpio_init_structure.Pin       = GPIO_PIN_3;
-  HAL_GPIO_DeInit(GPIOD, gpio_init_structure.Pin);
-
-  gpio_init_structure.Pin       = GPIO_PIN_10;
-  HAL_GPIO_DeInit(GPIOG, gpio_init_structure.Pin);
-
-  /* Disable DCMI clock */
-  __HAL_RCC_DCMI_CLK_DISABLE();
-}
 
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
 /**

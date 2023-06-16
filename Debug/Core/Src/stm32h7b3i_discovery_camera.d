@@ -43,7 +43,8 @@ Core/Src/stm32h7b3i_discovery_camera.o: \
  ../Drivers/CMSIS/Include/cmsis_compiler.h ../Core/Inc/camera.h \
  ../Core/Inc/stm32h7b3i_discovery_bus.h \
  ../Core/Inc/stm32h7b3i_discovery_conf.h \
- ../Core/Inc/stm32h7b3i_discovery_errno.h
+ ../Core/Inc/stm32h7b3i_discovery_errno.h ../Core/Inc/dcmi.h \
+ ../Core/Inc/main.h ../Core/Inc/stm32h7b3i_discovery_camera.h
 ../Core/Inc/stm32h7b3i_discovery_camera.h:
 ../Core/Inc/stm32h7b3i_discovery_errno.h:
 ../Core/Inc/stm32h7b3i_discovery_conf.h:
@@ -90,3 +91,6 @@ Core/Src/stm32h7b3i_discovery_camera.o: \
 ../Core/Inc/stm32h7b3i_discovery_bus.h:
 ../Core/Inc/stm32h7b3i_discovery_conf.h:
 ../Core/Inc/stm32h7b3i_discovery_errno.h:
+../Core/Inc/dcmi.h:
+../Core/Inc/main.h:
+../Core/Inc/stm32h7b3i_discovery_camera.h:
