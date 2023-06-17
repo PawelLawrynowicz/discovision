@@ -25,6 +25,7 @@
 #include "rtc.h"
 #include "usart.h"
 #include "gpio.h"
+#include "draw.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -52,10 +53,12 @@
 /* USER CODE BEGIN PV */
 #define OV5640_address 0x78
 
+
+
 __IO uint32_t camera_frame_ready = 0;
 //image buffer
-uint8_t buffer[480*272*3] = {0};
-uint32_t buffer2d[480*272]={0};
+uint8_t buffer[LTDC_HEIGHT*LTDC_WIDTH*3] = {0};
+uint32_t buffer2d[LTDC_HEIGHT*LTDC_WIDTH]={0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -157,7 +160,13 @@ int main(void)
   printf("Printing photo 1");
   HAL_GPIO_WritePin(USER_LED1_GPIO_Port, USER_LED1_Pin, GPIO_PIN_SET);
   BSP_CAMERA_Start(0, (uint8_t*)buffer, CAMERA_MODE_SNAPSHOT);
+  while(camera_frame_ready == 0) {};
+  DMA2D_Convert(buffer, buffer2d);
   BSP_CAMERA_Stop(0);
+  HAL_Delay(500);
+
+  drawRectangle(buffer2d, 119, 359, 68, 204);
+
   HAL_GPIO_WritePin(USER_LED1_GPIO_Port, USER_LED1_Pin, GPIO_PIN_RESET);
 
   while (1)
@@ -168,6 +177,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
   }
   /* USER CODE END 3 */
 }
@@ -244,7 +254,6 @@ void SystemClock_Config(void)
 
 void BSP_CAMERA_FrameEventCallback(uint32_t Instance){
 	camera_frame_ready = 1;
-	DMA2D_Convert(buffer, buffer2d);
 }
 
 /* USER CODE END 4 */

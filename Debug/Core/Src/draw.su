@@ -1,0 +1,3 @@
+../Core/Src/draw.c:4:6:drawVLine	32	static
+../Core/Src/draw.c:9:6:drawHLine	32	static
+../Core/Src/draw.c:16:6:drawRectangle	24	static
