@@ -118,10 +118,10 @@ int main(void)
 //  buffer[5460] = 255;
   LTDC_LayerCfgTypeDef pLayerCfg = {0};
 
-  pLayerCfg.WindowX0 = 0;
-  pLayerCfg.WindowX1 = 480;
-  pLayerCfg.WindowY0 = 0;
-  pLayerCfg.WindowY1 = 272;
+  pLayerCfg.WindowX0 = 28;
+  pLayerCfg.WindowX1 = 508;
+  pLayerCfg.WindowY0 = 6;
+  pLayerCfg.WindowY1 = 278;
   pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
   pLayerCfg.Alpha = 255;
   pLayerCfg.Alpha0 = 0;

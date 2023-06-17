@@ -2248,17 +2248,17 @@ int main(void)
  8001296:	4618      	mov	r0, r3
  8001298:	f00d fef0 	bl	800f07c <memset>
 
-  pLayerCfg.WindowX0 = 0;
- 800129c:	2300      	movs	r3, #0
+  pLayerCfg.WindowX0 = 28;
+ 800129c:	231c      	movs	r3, #28
  800129e:	607b      	str	r3, [r7, #4]
-  pLayerCfg.WindowX1 = 480;
- 80012a0:	f44f 73f0 	mov.w	r3, #480	; 0x1e0
+  pLayerCfg.WindowX1 = 508;
+ 80012a0:	f44f 73fe 	mov.w	r3, #508	; 0x1fc
  80012a4:	60bb      	str	r3, [r7, #8]
-  pLayerCfg.WindowY0 = 0;
- 80012a6:	2300      	movs	r3, #0
+  pLayerCfg.WindowY0 = 6;
+ 80012a6:	2306      	movs	r3, #6
  80012a8:	60fb      	str	r3, [r7, #12]
-  pLayerCfg.WindowY1 = 272;
- 80012aa:	f44f 7388 	mov.w	r3, #272	; 0x110
+  pLayerCfg.WindowY1 = 278;
+ 80012aa:	f44f 738b 	mov.w	r3, #278	; 0x116
  80012ae:	613b      	str	r3, [r7, #16]
   pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
  80012b0:	2302      	movs	r3, #2
