@@ -275,7 +275,9 @@ void Error_Handler(void);
 #define SDCKE1_GPIO_Port GPIOH
 
 /* USER CODE BEGIN Private defines */
-
+#define LTDC_HEIGHT 272
+#define LTDC_WIDTH 480
+#define COLOR 0xF000F00
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

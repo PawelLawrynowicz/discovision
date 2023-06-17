@@ -1,0 +1,3 @@
+draw.c:4:6:drawVLine	2
+draw.c:9:6:drawHLine	2
+draw.c:16:6:drawRectangle	1
