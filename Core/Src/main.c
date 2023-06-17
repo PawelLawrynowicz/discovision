@@ -30,6 +30,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include <string.h>
 #include "retarget.h"
 /* USER CODE END Includes */
 
@@ -120,37 +121,14 @@ int main(void)
 //  buffer[5460] = 255;
   LTDC_Init_from_buffer(buffer2d);
 
+	#define SDRAM_ADD 0xD0000000
 
-//  o Call BSP_CAMERA_SetLightMode()/BSP_CAMERA_GetLightMode() to set/get the camera light mode
-//         LightMode: - CAMERA_LIGHT_AUTO
-//                    - CAMERA_LIGHT_SUNNY
-//                    - CAMERA_LIGHT_OFFICE
-//                    - CAMERA_LIGHT_HOME
-//                    - CAMERA_LIGHT_CLOUDY
-//
-//       o Call BSP_CAMERA_SetColorEffect()/BSP_CAMERA_GetColorEffect() to set/get the camera color effects
-//         Effect: - CAMERA_COLOR_EFFECT_NONE
-//                 - CAMERA_COLOR_EFFECT_BLUE
-//                 - CAMERA_COLOR_EFFECT_RED
-//                 - CAMERA_COLOR_EFFECT_GREEN
-//                 - CAMERA_COLOR_EFFECT_BW
-//                 - CAMERA_COLOR_EFFECT_SEPIA
-//                 - CAMERA_COLOR_EFFECT_NEGATIVE
-//
-//      o Call BSP_CAMERA_SetBrightness()/BSP_CAMERA_GetBrightness() to set/get the camera Brightness
-//        Brightness is value between -4(Level 4 negative) and 4(Level 4 positive).
-//
-//      o Call BSP_CAMERA_SetSaturation()/BSP_CAMERA_GetSaturation() to set/get the camera Saturation
-//        Saturation is value between -4(Level 4 negative) and 4(Level 4 positive).
-//
-//      o Call BSP_CAMERA_SetContrast()/BSP_CAMERA_GetContrast() to set/get the camera Contrast
-//        Contrast is value between -4(Level 4 negative) and 4(Level 4 positive).
-//
-//      o Call BSP_CAMERA_SetHueDegree()/BSP_CAMERA_GetHueDegree() to set/get the camera Hue Degree
-//        HueDegree is value between -4(180 degree negative) and 4(150 degree positive).
-//	BSP_CAMERA_SetLightMode(0, CAMERA_LIGHT_HOME);
-//	BSP_CAMERA_SetColorEffect(0, CAMERA_COLOR_EFFECT_NONE);
+	uint8_t wdata[] = {0x1, 0x2, 0x3, 0x4, 0x5};
+	uint8_t rdata[10] = {0};
 
+	memcpy((uint32_t *) SDRAM_ADD, wdata, 5);
+
+	memcpy(rdata, (uint32_t *) SDRAM_ADD, 5);
 
   /* USER CODE END 2 */
 
