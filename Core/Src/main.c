@@ -116,27 +116,8 @@ int main(void)
 
   HAL_Delay(1000);
 //  buffer[5460] = 255;
-  LTDC_LayerCfgTypeDef pLayerCfg = {0};
+  LTDC_Init_from_buffer(buffer2d);
 
-  pLayerCfg.WindowX0 = 28;
-  pLayerCfg.WindowX1 = 508;
-  pLayerCfg.WindowY0 = 6;
-  pLayerCfg.WindowY1 = 278;
-  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
-  pLayerCfg.Alpha = 255;
-  pLayerCfg.Alpha0 = 0;
-  pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
-  pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
-  pLayerCfg.FBStartAdress = (uint32_t) buffer2d;
-  pLayerCfg.ImageWidth = 480;
-  pLayerCfg.ImageHeight = 272;
-  pLayerCfg.Backcolor.Blue = 0;
-  pLayerCfg.Backcolor.Green = 0;
-  pLayerCfg.Backcolor.Red = 255;
-  if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK)
-  {
-    Error_Handler();
-  }
 
 //  o Call BSP_CAMERA_SetLightMode()/BSP_CAMERA_GetLightMode() to set/get the camera light mode
 //         LightMode: - CAMERA_LIGHT_AUTO

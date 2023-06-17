@@ -41,7 +41,7 @@ extern LTDC_HandleTypeDef hltdc;
 void MX_LTDC_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+void LTDC_Init_from_buffer(uint32_t* buffer);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
