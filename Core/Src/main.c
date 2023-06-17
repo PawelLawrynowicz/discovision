@@ -120,17 +120,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  printf("Printing photo 1");
-  HAL_GPIO_WritePin(USER_LED1_GPIO_Port, USER_LED1_Pin, GPIO_PIN_SET);
-  BSP_CAMERA_Start(0, (uint8_t*)CAMERA_BUFFER, CAMERA_MODE_SNAPSHOT);
-  BSP_CAMERA_Stop(0);
-  HAL_GPIO_WritePin(USER_LED1_GPIO_Port, USER_LED1_Pin, GPIO_PIN_RESET);
 
   while (1)
   {
+	BSP_CAMERA_Start(0, (uint8_t*)CAMERA_BUFFER, CAMERA_MODE_SNAPSHOT);
+	while(camera_frame_ready == 0) {};
+	BSP_CAMERA_Stop(0);
 	HAL_GPIO_TogglePin(USER_LED1_GPIO_Port, USER_LED1_Pin);
-	printf("siema");
-	HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
