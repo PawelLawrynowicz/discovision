@@ -54,7 +54,8 @@
 
 __IO uint32_t camera_frame_ready = 0;
 //image buffer
-volatile uint8_t buffer[480*272*3] = {0};
+uint8_t buffer[480*272*3] = {0};
+uint32_t buffer2d[480*272]={0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -109,7 +110,7 @@ int main(void)
   //camera init
   BSP_CAMERA_PwrDown(0);
 
-  if(BSP_CAMERA_Init(0, CAMERA_R480x272, CAMERA_PF_RGB888) != BSP_ERROR_NONE){
+  if(BSP_CAMERA_Init(0, CAMERA_R480x272, CAMERA_PF_RGB565) != BSP_ERROR_NONE){
 	  Error_Handler();
   }
 
@@ -121,12 +122,12 @@ int main(void)
   pLayerCfg.WindowX1 = 480;
   pLayerCfg.WindowY0 = 0;
   pLayerCfg.WindowY1 = 272;
-  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB888;
+  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
   pLayerCfg.Alpha = 255;
   pLayerCfg.Alpha0 = 0;
   pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
   pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
-  pLayerCfg.FBStartAdress = (uint32_t) buffer;
+  pLayerCfg.FBStartAdress = (uint32_t) buffer2d;
   pLayerCfg.ImageWidth = 480;
   pLayerCfg.ImageHeight = 272;
   pLayerCfg.Backcolor.Blue = 0;
@@ -164,9 +165,8 @@ int main(void)
 //
 //      o Call BSP_CAMERA_SetHueDegree()/BSP_CAMERA_GetHueDegree() to set/get the camera Hue Degree
 //        HueDegree is value between -4(180 degree negative) and 4(150 degree positive).
-	BSP_CAMERA_SetLightMode(0, CAMERA_LIGHT_HOME);
-	BSP_CAMERA_SetColorEffect(0, CAMERA_COLOR_EFFECT_NONE);
-	BSP_CAMERA_SetHueDegree(0, 4);
+//	BSP_CAMERA_SetLightMode(0, CAMERA_LIGHT_HOME);
+//	BSP_CAMERA_SetColorEffect(0, CAMERA_COLOR_EFFECT_NONE);
 
 
   /* USER CODE END 2 */
@@ -263,6 +263,7 @@ void SystemClock_Config(void)
 
 void BSP_CAMERA_FrameEventCallback(uint32_t Instance){
 	camera_frame_ready = 1;
+	DMA2D_Convert(buffer, buffer2d);
 }
 
 /* USER CODE END 4 */
