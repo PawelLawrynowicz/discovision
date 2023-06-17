@@ -254,7 +254,7 @@ void    BSP_CAMERA_DMA_IRQHandler(uint32_t Instance);
 
 /* These functions can be modified in case the current settings (e.g. DMA stream)
    need to be changed for specific application needs */
-HAL_StatusTypeDef MX_DCMI_Init(DCMI_HandleTypeDef* hdcmi);
+//HAL_StatusTypeDef MX_DCMI_Init(DCMI_HandleTypeDef* hdcmi);
 
 
 /**
