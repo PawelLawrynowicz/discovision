@@ -275,7 +275,10 @@ void Error_Handler(void);
 #define SDCKE1_GPIO_Port GPIOH
 
 /* USER CODE BEGIN Private defines */
-
+#define CAMERA_BUFFER 			0xD0000000
+#define CAMERA_BUFFER_SIZE 	0x5FA00
+#define LCD_BUFFER 					0xD005FA00
+#define LCD_BUFFER_SIZE			0x7F800
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

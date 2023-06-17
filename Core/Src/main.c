@@ -55,9 +55,7 @@
 #define OV5640_address 0x78
 
 __IO uint32_t camera_frame_ready = 0;
-//image buffer
-uint8_t buffer[480*272*3] = {0};
-uint32_t buffer2d[480*272]={0};
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -109,26 +107,14 @@ int main(void)
   /* USER CODE BEGIN 2 */
   RetargetInit(&huart1);
 
-  printf("BUFFER RANDOM VALUE BEFORE CAPTURE: %d\n", buffer[5640]);
-  //camera init
-  BSP_CAMERA_PwrDown(0);
 
+  BSP_CAMERA_PwrDown(0);
   if(BSP_CAMERA_Init(0, CAMERA_R480x272, CAMERA_PF_RGB565) != BSP_ERROR_NONE){
 	  Error_Handler();
   }
-
   HAL_Delay(1000);
 //  buffer[5460] = 255;
-  LTDC_Init_from_buffer(buffer2d);
-
-	#define SDRAM_ADD 0xD0000000
-
-	uint8_t wdata[] = {0x1, 0x2, 0x3, 0x4, 0x5};
-	uint8_t rdata[10] = {0};
-
-	memcpy((uint32_t *) SDRAM_ADD, wdata, 5);
-
-	memcpy(rdata, (uint32_t *) SDRAM_ADD, 5);
+  LTDC_Init_from_buffer((uint32_t *)LCD_BUFFER);
 
   /* USER CODE END 2 */
 
@@ -136,7 +122,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   printf("Printing photo 1");
   HAL_GPIO_WritePin(USER_LED1_GPIO_Port, USER_LED1_Pin, GPIO_PIN_SET);
-  BSP_CAMERA_Start(0, (uint8_t*)buffer, CAMERA_MODE_SNAPSHOT);
+  BSP_CAMERA_Start(0, (uint8_t*)CAMERA_BUFFER, CAMERA_MODE_SNAPSHOT);
   BSP_CAMERA_Stop(0);
   HAL_GPIO_WritePin(USER_LED1_GPIO_Port, USER_LED1_Pin, GPIO_PIN_RESET);
 
@@ -224,7 +210,7 @@ void SystemClock_Config(void)
 
 void BSP_CAMERA_FrameEventCallback(uint32_t Instance){
 	camera_frame_ready = 1;
-	DMA2D_Convert(buffer, buffer2d);
+	DMA2D_Convert((uint8_t *)CAMERA_BUFFER, (uint32_t *)LCD_BUFFER);
 }
 
 /* USER CODE END 4 */
