@@ -11,6 +11,7 @@ extern "C" {
 void drawVLine(uint32_t *buffer, uint32_t x_start, uint32_t x_end, uint32_t y_start, uint32_t y_end);
 void drawHLine(uint32_t *buffer, uint32_t x_start, uint32_t x_end, uint32_t y_start, uint32_t y_end);
 void drawRectangle(uint32_t *buffer, uint32_t x_start, uint32_t x_end, uint32_t y_start, uint32_t y_end);
+void drawCrosshair(uint32_t *buffer, uint32_t x, uint32_t y);
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,7 @@
 "./Core/Src/dcmi.o"
 "./Core/Src/dma.o"
 "./Core/Src/dma2d.o"
+"./Core/Src/draw.o"
 "./Core/Src/fmc.o"
 "./Core/Src/gpio.o"
 "./Core/Src/ltdc.o"
