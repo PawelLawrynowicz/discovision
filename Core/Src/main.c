@@ -127,6 +127,7 @@ int main(void) {
         while (camera_frame_ready == 0) {
         };
         DMA2D_Convert((uint8_t *)CAMERA_BUFFER, (uint32_t *)LCD_BUFFER);
+        drawCrosshair((uint32_t *)LCD_BUFFER, 470, 265);
         BSP_CAMERA_Stop(0);
         HAL_GPIO_TogglePin(USER_LED1_GPIO_Port, USER_LED1_Pin);
         /* USER CODE END WHILE */
