@@ -280,10 +280,10 @@ void Error_Handler(void);
 #define CROSSHAIR_SIZE 15
 #define GRID_SIZE 12
 #define THRESHOLD 0.5
-#define COLOR 0xF000F00
+#define COLOR 0xFF00
 #define CAMERA_BUFFER 0xD0000000
-#define CAMERA_BUFFER_SIZE 0x5FA00
-#define LCD_BUFFER 0xD005FA00
+#define CAMERA_BUFFER_SIZE 0x7F800
+#define LCD_BUFFER 0xD007F800
 #define LCD_BUFFER_SIZE 0x7F800
 /* USER CODE END Private defines */
 

@@ -8,8 +8,13 @@ void drawVLine(uint32_t *buffer, int32_t x, int32_t y_start, int32_t y_end){
 	if(y_end>LTDC_HEIGHT){
 		y_end=LTDC_HEIGHT;
 	}
+//	for rgb565
+//	for(uint32_t i = y_start; i<y_end; i++){
+//			buffer[(x+i*LTDC_WIDTH)/2] = COLOR;
+//	}
 	for(uint32_t i = y_start; i<y_end; i++){
-			buffer[(x+i*LTDC_WIDTH)/2] = COLOR;
+			buffer[x+i*LTDC_WIDTH] = COLOR;
+			buffer[1+x+i*LTDC_WIDTH] = COLOR;
 	}
 }
 void drawHLine(uint32_t *buffer, int32_t x_start, int32_t x_end, int32_t y){
@@ -20,10 +25,15 @@ void drawHLine(uint32_t *buffer, int32_t x_start, int32_t x_end, int32_t y){
 		x_end=LTDC_WIDTH;
 	}
 	x_end=x_end+x_end%2;
-	for(uint32_t i = x_start/2; i<x_end/2; i++){
-		buffer[i+LTDC_WIDTH*y/2] = COLOR;
-		buffer[i+(LTDC_WIDTH+LTDC_WIDTH*y)/2] = COLOR;
-	}
+//	for rgb565
+//	for(uint32_t i = x_start/2; i<x_end/2; i++){
+//		buffer[i+LTDC_WIDTH*y/2] = COLOR;
+//		buffer[i+(LTDC_WIDTH+LTDC_WIDTH*y)/2] = COLOR;
+//	}
+	for(uint32_t i = x_start; i<x_end; i++){
+			buffer[i+LTDC_WIDTH*y] = COLOR;
+			buffer[i+LTDC_WIDTH+LTDC_WIDTH*y] = COLOR;
+		}
 }
 void drawRectangle(uint32_t *buffer, int32_t x_start, int32_t x_end, int32_t y_start, int32_t y_end){
 	drawVLine(buffer, x_start, y_start, y_end);
