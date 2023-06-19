@@ -1,0 +1,13 @@
+face_detection.c:2479:9:face_detection_configure_activations	2
+face_detection.c:2701:9:face_detection_configure_weights	2
+face_detection.c:2889:9:ai_face_detection_get_info	4
+face_detection.c:2935:9:ai_face_detection_get_report	4
+face_detection.c:2981:10:ai_face_detection_get_error	1
+face_detection.c:2987:10:ai_face_detection_create	1
+face_detection.c:2997:10:ai_face_detection_create_and_init	8
+face_detection.c:3031:12:ai_face_detection_inputs_get	2
+face_detection.c:3041:12:ai_face_detection_outputs_get	2
+face_detection.c:3051:11:ai_face_detection_destroy	1
+face_detection.c:3057:9:ai_face_detection_init	2
+face_detection.c:3074:8:ai_face_detection_run	1
+face_detection.c:3081:8:ai_face_detection_forward	1
