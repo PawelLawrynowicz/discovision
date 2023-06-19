@@ -4,6 +4,7 @@
 "./Core/Src/draw.o"
 "./Core/Src/fmc.o"
 "./Core/Src/gpio.o"
+"./Core/Src/img_utils.o"
 "./Core/Src/ltdc.o"
 "./Core/Src/main.o"
 "./Core/Src/ov5640.o"

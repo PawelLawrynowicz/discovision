@@ -1,0 +1,4 @@
+../Core/Src/draw.c:4:6:drawVLine	16	static
+../Core/Src/draw.c:15:6:drawHLine	12	static
+../Core/Src/draw.c:28:6:drawRectangle	24	static
+../Core/Src/draw.c:35:6:drawCrosshair	16	static
