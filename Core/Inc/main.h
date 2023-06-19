@@ -278,6 +278,8 @@ void Error_Handler(void);
 #define LTDC_HEIGHT 272
 #define LTDC_WIDTH 480
 #define CROSSHAIR_SIZE 15
+#define GRID_SIZE 12
+#define THRESHOLD 0.5
 #define COLOR 0xF000F00
 #define CAMERA_BUFFER 0xD0000000
 #define CAMERA_BUFFER_SIZE 0x5FA00

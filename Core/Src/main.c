@@ -27,6 +27,7 @@
 #include "ltdc.h"
 #include "rtc.h"
 #include "usart.h"
+#include "process.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -56,6 +57,21 @@
 #define OV5640_address 0x78
 
 __IO uint32_t camera_frame_ready = 0;
+
+float probabilites[GRID_SIZE][GRID_SIZE] = {
+		{1,1,1,1,1,1,0,0,0,0,0,0},
+		{1,1,1,1,1,1,0,0,0,0,0,0},
+		{1,1,1,1,1,1,0,0,0,0,0,0},
+		{1,1,1,1,1,1,0,0,0,0,0,0},
+		{1,1,1,1,1,1,0,0,0,0,0,0},
+		{1,1,1,1,1,1,0,0,0,0,0,0},
+		{0,0,0,0,0,0,1,1,1,1,1,1},
+		{0,0,0,0,0,0,1,1,1,1,1,1},
+		{0,0,0,0,0,0,1,1,1,1,1,1},
+		{0,0,0,0,0,0,1,1,1,1,1,1},
+		{0,0,0,0,0,0,1,1,1,1,1,1},
+		{0,0,0,0,0,0,1,1,1,1,1,1},
+};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -123,12 +139,17 @@ int main(void) {
     /* USER CODE BEGIN WHILE */
 
     while (1) {
+    	// make photo
         BSP_CAMERA_Start(0, (uint8_t *)CAMERA_BUFFER, CAMERA_MODE_SNAPSHOT);
         while (camera_frame_ready == 0) {
         };
-        DMA2D_Convert((uint8_t *)CAMERA_BUFFER, (uint32_t *)LCD_BUFFER);
-        drawCrosshair((uint32_t *)LCD_BUFFER, 470, 265);
         BSP_CAMERA_Stop(0);
+        // process photo
+        DMA2D_Convert((uint8_t *)CAMERA_BUFFER, (uint32_t *)LCD_BUFFER);
+
+        // post process
+        postProcess((uint32_t *)LCD_BUFFER, LTDC_WIDTH, LTDC_HEIGHT, 96, 96, GRID_SIZE, probabilites);
+
         HAL_GPIO_TogglePin(USER_LED1_GPIO_Port, USER_LED1_Pin);
         /* USER CODE END WHILE */
 
