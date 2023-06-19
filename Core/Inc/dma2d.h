@@ -41,7 +41,7 @@ extern DMA2D_HandleTypeDef hdma2d;
 void MX_DMA2D_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-void DMA2D_Convert(uint8_t* source, uint32_t* destination);
+void DMA2D_Convert(uint32_t* source, uint32_t* destination);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
