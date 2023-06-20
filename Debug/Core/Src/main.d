@@ -47,8 +47,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/dcmi.h ../Core/Inc/dma.h ../Core/Inc/dma2d.h \
  ../Core/Inc/ltdc.h ../Core/Inc/rtc.h ../Core/Inc/usart.h \
  ../Core/Inc/gpio.h ../Core/Inc/fmc.h ../X-CUBE-AI/App/app_x-cube-ai.h \
- ../Middlewares/ST/AI/Inc/ai_platform.h ../Core/Inc/retarget.h \
- ../Core/Inc/img_utils.h ../Core/Inc/process.h ../Core/Inc/draw.h
+ ../Middlewares/ST/AI/Inc/ai_platform.h ../Core/Inc/process.h \
+ ../Core/Inc/draw.h ../Core/Inc/retarget.h ../Core/Inc/img_utils.h
 ../Core/Inc/main.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 ../Core/Inc/stm32h7xx_hal_conf.h:
@@ -109,7 +109,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/fmc.h:
 ../X-CUBE-AI/App/app_x-cube-ai.h:
 ../Middlewares/ST/AI/Inc/ai_platform.h:
-../Core/Inc/retarget.h:
-../Core/Inc/img_utils.h:
 ../Core/Inc/process.h:
 ../Core/Inc/draw.h:
+../Core/Inc/retarget.h:
+../Core/Inc/img_utils.h:

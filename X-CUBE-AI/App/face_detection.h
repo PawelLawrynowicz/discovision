@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    face_detection.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Tue Jun 20 00:17:28 2023
+  * @date    Tue Jun 20 13:25:11 2023
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -25,7 +25,7 @@
 
 /******************************************************************************/
 #define AI_FACE_DETECTION_MODEL_NAME          "face_detection"
-#define AI_FACE_DETECTION_ORIGIN_MODEL_NAME   "face_detection"
+#define AI_FACE_DETECTION_ORIGIN_MODEL_NAME   "face_detection_float32"
 
 /******************************************************************************/
 #define AI_FACE_DETECTION_ACTIVATIONS_ALIGNMENT   (4)
@@ -49,7 +49,7 @@ AI_DEPRECATED
 #define AI_FACE_DETECTION_IN_1_WIDTH       (96)
 #define AI_FACE_DETECTION_IN_1_CHANNEL     (3)
 #define AI_FACE_DETECTION_IN_1_SIZE        (96 * 96 * 3)
-#define AI_FACE_DETECTION_IN_1_SIZE_BYTES  (27649)
+#define AI_FACE_DETECTION_IN_1_SIZE_BYTES  (110592)
 
 /******************************************************************************/
 #define AI_FACE_DETECTION_OUT_NUM       (1)
@@ -68,10 +68,10 @@ AI_DEPRECATED
 #define AI_FACE_DETECTION_OUT_1_WIDTH       (12)
 #define AI_FACE_DETECTION_OUT_1_CHANNEL     (2)
 #define AI_FACE_DETECTION_OUT_1_SIZE        (12 * 12 * 2)
-#define AI_FACE_DETECTION_OUT_1_SIZE_BYTES  (288)
+#define AI_FACE_DETECTION_OUT_1_SIZE_BYTES  (1152)
 
 /******************************************************************************/
-#define AI_FACE_DETECTION_N_NODES (33)
+#define AI_FACE_DETECTION_N_NODES (24)
 
 
 AI_API_DECLARE_BEGIN

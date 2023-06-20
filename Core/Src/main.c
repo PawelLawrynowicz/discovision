@@ -60,19 +60,21 @@
 
 __IO uint32_t camera_frame_ready = 0;
 
-float probabilites[GRID_SIZE][GRID_SIZE] = {
-		{1,1,1,1,1,1,0,0,0,0,0,0},
-		{1,1,1,1,1,1,0,0,0,0,0,0},
-		{1,1,1,1,1,1,0,0,0,0,0,0},
-		{1,1,1,1,1,1,0,0,0,0,0,0},
-		{1,1,1,1,1,1,0,0,0,0,0,0},
-		{1,1,1,1,1,1,0,0,0,0,0,0},
-		{0,0,0,0,0,0,1,1,1,1,1,1},
-		{0,0,0,0,0,0,1,1,1,1,1,1},
-		{0,0,0,0,0,0,1,1,1,1,1,1},
-		{0,0,0,0,0,0,1,1,1,1,1,1},
-		{0,0,0,0,0,0,1,1,1,1,1,1},
-		{0,0,0,0,0,0,1,1,1,1,1,1},
+float probabilites[GRID_SIZE*GRID_SIZE*2] = {
+		1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	     1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	     1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	     1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	     1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
+	     1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
+		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
+		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
+		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
+		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
+		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
+		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
+
+
 };
 
 uint32_t rescaledImg[96*96];
@@ -164,7 +166,7 @@ int main(void)
 
   //MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
-        MX_X_CUBE_AI_Process((uint32_t *)LCD_BUFFER);
+        //MX_X_CUBE_AI_Process((uint32_t *)LCD_BUFFER, (uint32_t*)rescaledImg);
   	  	postProcess((uint32_t *)LCD_BUFFER, LTDC_WIDTH, LTDC_HEIGHT, 96, 96, GRID_SIZE, probabilites);
 
         HAL_GPIO_TogglePin(USER_LED1_GPIO_Port, USER_LED1_Pin);
@@ -227,13 +229,13 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_D3PCLK1|RCC_CLOCKTYPE_D1PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
   RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7) != HAL_OK)
   {
     Error_Handler();
   }
