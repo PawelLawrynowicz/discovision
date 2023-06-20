@@ -205,15 +205,24 @@ void MX_X_CUBE_AI_Init(void)
     /* USER CODE END 5 */
 }
 
-void MX_X_CUBE_AI_Process(void)
+void MX_X_CUBE_AI_Process(uint32_t* buffer)
 {
     /* USER CODE BEGIN 6 */
 	ai_i32 batch;
-	float nn_input[AI_FACE_DETECTION_IN_1_SIZE];
-	float nn_output[AI_FACE_DETECTION_OUT_1_SIZE];
+	//float nn_input[AI_FACE_DETECTION_IN_1_SIZE];
+	uint8_t nn_output[AI_FACE_DETECTION_OUT_1_SIZE];
+
+	uint8_t input[AI_FACE_DETECTION_IN_1_SIZE];
+
+	for(uint16_t i = 0; i<96*96; i++){
+		input[3*i] = (buffer[i]&0xff0000)>>16;
+		input[3*i+1] = (buffer[i]&0xff00)>>8;
+		input[3*i+2] = (buffer[i]&0xff);
+	}
+
 //	nn_input[0] = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_8) ? 127.0 : -127.0;
 //	nn_input[1] = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) ? 127.0 : -127.0;
-	ai_input->data = nn_input;
+	ai_input->data = input;
 	ai_output->data = nn_output;
 	batch = ai_face_detection_run(face_detection, ai_input, ai_output);
 //	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, nn_output[0]>=0 ? 1 : 0);

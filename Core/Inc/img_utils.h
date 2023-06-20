@@ -9,6 +9,6 @@
 #define INC_IMG_UTILS_H_
 
 #include <stdint.h>
-void rescaleImage(uint16_t *srcImg,uint16_t *dstImg, uint32_t srcWidth, uint32_t srcHeight, uint32_t dstWidth, uint32_t dstHeight);
+void rescaleImage(uint32_t *srcImg,uint32_t *dstImg, uint32_t srcWidth, uint32_t srcHeight, uint32_t dstWidth, uint32_t dstHeight);
 
 #endif /* INC_IMG_UTILS_H_ */

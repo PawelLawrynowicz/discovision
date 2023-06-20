@@ -6,7 +6,7 @@
  */
 
 #include "img_utils.h"
-void rescaleImage(uint16_t *srcImg,uint16_t *dstImg, uint32_t srcWidth, uint32_t srcHeight, uint32_t dstWidth, uint32_t dstHeight)
+void rescaleImage(uint32_t *srcImg,uint32_t *dstImg, uint32_t srcWidth, uint32_t srcHeight, uint32_t dstWidth, uint32_t dstHeight)
 {
     float scaleX = (float)srcWidth / dstWidth;
     float scaleY = (float)srcHeight / dstHeight;
@@ -15,8 +15,8 @@ void rescaleImage(uint16_t *srcImg,uint16_t *dstImg, uint32_t srcWidth, uint32_t
     {
         for (int x = 0; x < dstWidth; x++)
         {
-            uint16_t srcX = (uint16_t)(x * scaleX);
-            uint16_t srcY = (uint16_t)(y * scaleY);
+            uint32_t srcX = (uint32_t)(x * scaleX);
+            uint32_t srcY = (uint32_t)(y * scaleY);
 
             dstImg[y * dstWidth + x] = srcImg[srcY * srcWidth + srcX];
         }

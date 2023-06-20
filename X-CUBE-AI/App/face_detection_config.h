@@ -3,7 +3,7 @@
   ******************************************************************************
   * @file    face_detection_config.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Mon Jun 19 23:25:08 2023
+  * @date    Tue Jun 20 00:17:28 2023
   * @brief   AI Tool Automatic Code Generator for Custom Layers Implementation
   ******************************************************************************
   * @attention

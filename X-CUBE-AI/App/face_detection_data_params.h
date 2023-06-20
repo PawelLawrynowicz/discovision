@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    face_detection_data_params.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Mon Jun 19 23:25:08 2023
+  * @date    Tue Jun 20 00:17:28 2023
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * Copyright (c) 2023 STMicroelectronics.

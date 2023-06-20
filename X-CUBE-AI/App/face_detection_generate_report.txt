@@ -1,6 +1,6 @@
 Neural Network Tools for STM32AI v1.7.0 (STM.ai v8.0.0-19389)
-Created date          : 2023-06-19 23:25:09
-Parameters            : generate --name face_detection -m C:/Users/hubert/STM32CubeIDE/workspace_1.10.0/camera_bsp_driver/face_detection.tflite --type tflite --compression none --verbosity 1 --workspace C:\Users\hubert\AppData\Local\Temp\mxAI_workspace1316616444190017592798961933237845 --output C:\Users\hubert\.stm32cubemx\network_output --allocate-inputs --series stm32h7 --allocate-outputs
+Created date          : 2023-06-20 00:17:29
+Parameters            : generate --name face_detection -m C:/Users/hubert/STM32CubeIDE/workspace_1.10.0/camera_bsp_driver/face_detection.tflite --type tflite --compression none --verbosity 1 --workspace C:\Users\hubert\AppData\Local\Temp\mxAI_workspace1630502793650011125190216191688313 --output C:\Users\hubert\.stm32cubemx\network_output --allocate-inputs --series stm32h7 --allocate-outputs
 
 Exec/report summary (generate)
 ---------------------------------------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ compression        :   none
 options            :   allocate-inputs, allocate-outputs                                                       
 optimization       :   balanced                                                                                
 target/series      :   stm32h7                                                                                 
-workspace dir      :   C:\Users\hubert\AppData\Local\Temp\mxAI_workspace1316616444190017592798961933237845     
+workspace dir      :   C:\Users\hubert\AppData\Local\Temp\mxAI_workspace1630502793650011125190216191688313     
 output dir         :   C:\Users\hubert\.stm32cubemx\network_output                                             
 model_fmt          :   ss/sa per-channel                                                                       
 model_name         :   face_detection                                                                          
