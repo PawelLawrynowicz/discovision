@@ -233,12 +233,12 @@ void MX_X_CUBE_AI_Process(uint32_t *buffer, uint32_t*rescaled_Img)
 //	printf("%f\r\n", nn_output[0]);
 	//postProcess(buffer, LTDC_WIDTH, LTDC_HEIGHT, 96, 96, GRID_SIZE, nn_output);
 
-	for(uint32_t i=1; i<38300; i+=10){
+	for(uint32_t i=1; i<AI_FACE_DETECTION_OUT_1_SIZE; i+=10){
 		if(nn_output[i]>0.9f){
-			float x_start = nn_output[i+5]*480.0f;
-			float x_end = nn_output[i+7]*480.0f;
-			float y_start = nn_output[i+6]*272.0f;
-			float y_end = nn_output[i+8]*272.0f;
+			float x_start = nn_output[i+5]*LTDC_WIDTH_FLOAT;
+			float x_end = nn_output[i+7]*LTDC_WIDTH_FLOAT;
+			float y_start = nn_output[i+6]*LTDC_HEIGHT_FLOAT;
+			float y_end = nn_output[i+8]*LTDC_HEIGHT_FLOAT;
 
 			drawRectangle(buffer, (int32_t)x_start, (int32_t)x_end, (int32_t)y_start, (int32_t)y_end);
 

@@ -106,7 +106,7 @@ void DMA2D_Convert(uint8_t* source, uint32_t* destination)
 {
   HAL_StatusTypeDef status;
   status = HAL_DMA2D_Start(&hdma2d, (uint32_t)source,
-                        (uint32_t)destination, 480, 272);
+                        (uint32_t)destination, LTDC_WIDTH, LTDC_HEIGHT);
   if (status != HAL_OK) {
     Error_Handler();
   }

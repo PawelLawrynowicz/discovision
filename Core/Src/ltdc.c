@@ -247,17 +247,17 @@ void HAL_LTDC_MspDeInit(LTDC_HandleTypeDef* ltdcHandle)
 void LTDC_Init_from_buffer(uint32_t* buffer){
 	LTDC_LayerCfgTypeDef pLayerCfg = {0};
 	pLayerCfg.WindowX0 = 28;
-	pLayerCfg.WindowX1 = 508;
+	pLayerCfg.WindowX1 = 28+LTDC_WIDTH;
 	pLayerCfg.WindowY0 = 6;
-	pLayerCfg.WindowY1 = 278;
+	pLayerCfg.WindowY1 = 6+LTDC_HEIGHT;
 	pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_ARGB8888;
 	pLayerCfg.Alpha = 255;
 	pLayerCfg.Alpha0 = 0;
 	pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
 	pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
 	pLayerCfg.FBStartAdress = (uint32_t)buffer;
-	pLayerCfg.ImageWidth = 480;
-	pLayerCfg.ImageHeight = 272;
+	pLayerCfg.ImageWidth = LTDC_WIDTH;
+	pLayerCfg.ImageHeight = LTDC_HEIGHT;
 	pLayerCfg.Backcolor.Blue = 0;
 	pLayerCfg.Backcolor.Green = 0;
 	pLayerCfg.Backcolor.Red = 0;

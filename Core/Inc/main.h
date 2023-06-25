@@ -276,7 +276,9 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 #define LTDC_HEIGHT 272
+#define LTDC_HEIGHT_FLOAT 272.f
 #define LTDC_WIDTH 480
+#define LTDC_WIDTH_FLOAT 480.f
 #define RESCALED_IMG 192
 #define CROSSHAIR_SIZE 15
 #define GRID_SIZE 12
