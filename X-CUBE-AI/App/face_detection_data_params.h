@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    face_detection_data_params.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Tue Jun 20 13:25:11 2023
+  * @date    Sun Jun 25 20:07:58 2023
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * Copyright (c) 2023 STMicroelectronics.
@@ -29,18 +29,18 @@
 
 
 #define AI_FACE_DETECTION_DATA_ACTIVATIONS_SIZES \
-  { 464064, }
-#define AI_FACE_DETECTION_DATA_ACTIVATIONS_SIZE     (464064)
+  { 200292, }
+#define AI_FACE_DETECTION_DATA_ACTIVATIONS_SIZE     (200292)
 #define AI_FACE_DETECTION_DATA_ACTIVATIONS_COUNT    (1)
-#define AI_FACE_DETECTION_DATA_ACTIVATION_1_SIZE    (464064)
+#define AI_FACE_DETECTION_DATA_ACTIVATION_1_SIZE    (200292)
 
 
 
 #define AI_FACE_DETECTION_DATA_WEIGHTS_SIZES \
-  { 72552, }
-#define AI_FACE_DETECTION_DATA_WEIGHTS_SIZE         (72552)
+  { 448800, }
+#define AI_FACE_DETECTION_DATA_WEIGHTS_SIZE         (448800)
 #define AI_FACE_DETECTION_DATA_WEIGHTS_COUNT        (1)
-#define AI_FACE_DETECTION_DATA_WEIGHT_1_SIZE        (72552)
+#define AI_FACE_DETECTION_DATA_WEIGHT_1_SIZE        (448800)
 
 
 

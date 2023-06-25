@@ -26,10 +26,10 @@ extern "C" {
 #include "ai_platform.h"
 
 void MX_X_CUBE_AI_Init(void);
-void MX_X_CUBE_AI_Process(uint32_t* buffer, uint32_t* rescaled_Img);
+void MX_X_CUBE_AI_Process(uint32_t *buffer, uint32_t*rescaled_Img);
 /* USER CODE BEGIN includes */
 #include "main.h"
-#include "process.h"
+#include "draw.h"
 /* USER CODE END includes */
 #ifdef __cplusplus
 }

@@ -44,8 +44,8 @@ X-CUBE-AI/App/app_x-cube-ai.o: ../X-CUBE-AI/App/app_x-cube-ai.c \
  ../Core/Inc/stm32h7b3i_discovery_errno.h \
  ../Core/Inc/stm32h7b3i_discovery_conf.h ../Core/Inc/ov5640.h \
  ../Core/Inc/ov5640_reg.h ../Drivers/CMSIS/Include/cmsis_compiler.h \
- ../Core/Inc/camera.h ../Core/Inc/process.h ../Core/Inc/main.h \
- ../Core/Inc/draw.h ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h \
+ ../Core/Inc/camera.h ../Core/Inc/draw.h ../Core/Inc/main.h \
+ ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h \
  ../X-CUBE-AI/App/face_detection.h \
  ../X-CUBE-AI/App/face_detection_config.h \
  ../X-CUBE-AI/App/face_detection_data.h \
@@ -100,9 +100,8 @@ X-CUBE-AI/App/app_x-cube-ai.o: ../X-CUBE-AI/App/app_x-cube-ai.c \
 ../Core/Inc/ov5640_reg.h:
 ../Drivers/CMSIS/Include/cmsis_compiler.h:
 ../Core/Inc/camera.h:
-../Core/Inc/process.h:
-../Core/Inc/main.h:
 ../Core/Inc/draw.h:
+../Core/Inc/main.h:
 ../Middlewares/ST/AI/Inc/ai_datatypes_defines.h:
 ../X-CUBE-AI/App/face_detection.h:
 ../X-CUBE-AI/App/face_detection_config.h:

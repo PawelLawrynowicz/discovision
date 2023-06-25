@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    face_detection.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Tue Jun 20 13:25:11 2023
+  * @date    Sun Jun 25 20:07:58 2023
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -25,7 +25,7 @@
 
 /******************************************************************************/
 #define AI_FACE_DETECTION_MODEL_NAME          "face_detection"
-#define AI_FACE_DETECTION_ORIGIN_MODEL_NAME   "face_detection_float32"
+#define AI_FACE_DETECTION_ORIGIN_MODEL_NAME   "quantized_model"
 
 /******************************************************************************/
 #define AI_FACE_DETECTION_ACTIVATIONS_ALIGNMENT   (4)
@@ -45,10 +45,10 @@ AI_DEPRECATED
 #define AI_FACE_DETECTION_IN_SIZE_BYTES { \
   AI_FACE_DETECTION_IN_1_SIZE_BYTES, \
 }
-#define AI_FACE_DETECTION_IN_1_HEIGHT      (96)
-#define AI_FACE_DETECTION_IN_1_WIDTH       (96)
+#define AI_FACE_DETECTION_IN_1_HEIGHT      (192)
+#define AI_FACE_DETECTION_IN_1_WIDTH       (192)
 #define AI_FACE_DETECTION_IN_1_CHANNEL     (3)
-#define AI_FACE_DETECTION_IN_1_SIZE        (96 * 96 * 3)
+#define AI_FACE_DETECTION_IN_1_SIZE        (192 * 192 * 3)
 #define AI_FACE_DETECTION_IN_1_SIZE_BYTES  (110592)
 
 /******************************************************************************/
@@ -64,14 +64,13 @@ AI_DEPRECATED
 #define AI_FACE_DETECTION_OUT_SIZE_BYTES { \
   AI_FACE_DETECTION_OUT_1_SIZE_BYTES, \
 }
-#define AI_FACE_DETECTION_OUT_1_HEIGHT      (12)
-#define AI_FACE_DETECTION_OUT_1_WIDTH       (12)
-#define AI_FACE_DETECTION_OUT_1_CHANNEL     (2)
-#define AI_FACE_DETECTION_OUT_1_SIZE        (12 * 12 * 2)
-#define AI_FACE_DETECTION_OUT_1_SIZE_BYTES  (1152)
+#define AI_FACE_DETECTION_OUT_1_HEIGHT      (3830)
+#define AI_FACE_DETECTION_OUT_1_CHANNEL     (10)
+#define AI_FACE_DETECTION_OUT_1_SIZE        (3830 * 10)
+#define AI_FACE_DETECTION_OUT_1_SIZE_BYTES  (153200)
 
 /******************************************************************************/
-#define AI_FACE_DETECTION_N_NODES (24)
+#define AI_FACE_DETECTION_N_NODES (96)
 
 
 AI_API_DECLARE_BEGIN

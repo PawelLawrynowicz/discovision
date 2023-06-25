@@ -77,7 +77,7 @@ float probabilites[GRID_SIZE*GRID_SIZE*2] = {
 
 };
 
-uint32_t rescaledImg[96*96];
+uint32_t rescaledImg[RESCALED_IMG*RESCALED_IMG];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -160,14 +160,24 @@ int main(void)
         DMA2D_Convert((uint8_t *)CAMERA_BUFFER, (uint32_t *)LCD_BUFFER);
 
         // rescale
-        rescaleImage((uint32_t*)LCD_BUFFER, (uint32_t*)rescaledImg, LTDC_WIDTH, LTDC_HEIGHT, 96, 96);
+        rescaleImage((uint32_t*)LCD_BUFFER, (uint32_t*)rescaledImg, LTDC_WIDTH, LTDC_HEIGHT, RESCALED_IMG, RESCALED_IMG);
 
     /* USER CODE END WHILE */
 
-  //MX_X_CUBE_AI_Process();
+//  MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
-        //MX_X_CUBE_AI_Process((uint32_t *)LCD_BUFFER, (uint32_t*)rescaledImg);
-  	  	postProcess((uint32_t *)LCD_BUFFER, LTDC_WIDTH, LTDC_HEIGHT, 96, 96, GRID_SIZE, probabilites);
+//        uint32_t *lcd_ptr = (uint32_t *)LCD_BUFFER;
+//        uint32_t table[480*272]={0};
+//        for (int i = 0; i < 480*272; i++) {
+//            table[i] = *(lcd_ptr+i);
+//        }
+//        printf("image print start");
+//        for(uint64_t i = 0; i<LTDC_WIDTH*LTDC_HEIGHT; i++){
+//        	printf("%u, %u, %u,", (uint8_t)((*(lcd_ptr+i)&0xff0000)>>16), (uint8_t)((*(lcd_ptr+i)&0xff00)>>8), (uint8_t)(*(lcd_ptr+i)&0xff));
+//        }
+//        printf("end image");
+        MX_X_CUBE_AI_Process((uint32_t *)LCD_BUFFER, (uint32_t*)rescaledImg);
+  	  	//postProcess((uint32_t *)LCD_BUFFER, LTDC_WIDTH, LTDC_HEIGHT, 96, 96, GRID_SIZE, probabilites);
 
         HAL_GPIO_TogglePin(USER_LED1_GPIO_Port, USER_LED1_Pin);
     }

@@ -205,24 +205,24 @@ void MX_X_CUBE_AI_Init(void)
     /* USER CODE END 5 */
 }
 
-void MX_X_CUBE_AI_Process(uint32_t* buffer, uint32_t* rescaled_Img)
+void MX_X_CUBE_AI_Process(uint32_t *buffer, uint32_t*rescaled_Img)
 {
     /* USER CODE BEGIN 6 */
 	ai_i32 batch;
 	//float nn_input[AI_FACE_DETECTION_IN_1_SIZE];
 	float nn_output[AI_FACE_DETECTION_OUT_1_SIZE];
 
-	float input[AI_FACE_DETECTION_IN_1_SIZE];
+	uint8_t input[AI_FACE_DETECTION_IN_1_SIZE];
 
-	for(uint16_t i = 0; i<96*96; i++){
+	for(uint32_t i = 0; i<RESCALED_IMG*RESCALED_IMG; i++){
 		input[3*i] = (rescaled_Img[i]&0xff0000)>>16;
 		input[3*i+1] = (rescaled_Img[i]&0xff00)>>8;
 		input[3*i+2] = (rescaled_Img[i]&0xff);
 	}
 
-	for(uint16_t i=0; i<96*96*3; i++){
-		input[i]=input[i]/255;
-	}
+//	for(uint16_t i=0; i<192*192*3; i++){
+//		input[i]=input[i]/255;
+//	}
 
 //	nn_input[0] = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_8) ? 127.0 : -127.0;
 //	nn_input[1] = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9) ? 127.0 : -127.0;
@@ -231,7 +231,20 @@ void MX_X_CUBE_AI_Process(uint32_t* buffer, uint32_t* rescaled_Img)
 	batch = ai_face_detection_run(face_detection, ai_input, ai_output);
 //	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, nn_output[0]>=0 ? 1 : 0);
 //	printf("%f\r\n", nn_output[0]);
-	postProcess(buffer, LTDC_WIDTH, LTDC_HEIGHT, 96, 96, GRID_SIZE, nn_output);
+	//postProcess(buffer, LTDC_WIDTH, LTDC_HEIGHT, 96, 96, GRID_SIZE, nn_output);
+
+	for(uint32_t i=1; i<38300; i+=10){
+		if(nn_output[i]>0.9f){
+			float x_start = nn_output[i+5]*480.0f;
+			float x_end = nn_output[i+7]*480.0f;
+			float y_start = nn_output[i+6]*272.0f;
+			float y_end = nn_output[i+8]*272.0f;
+
+			drawRectangle(buffer, (int32_t)x_start, (int32_t)x_end, (int32_t)y_start, (int32_t)y_end);
+
+		}
+	}
+
 	if (batch != 1) {
 	ai_log_err(ai_face_detection_get_error(face_detection), "aiface_detection_face_detection");
 	}

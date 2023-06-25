@@ -1,4 +1,4 @@
 draw.c:4:6:drawVLine	4
-draw.c:15:6:drawHLine	6
+draw.c:15:6:drawHLine	4
 draw.c:28:6:drawRectangle	1
 draw.c:35:6:drawCrosshair	1

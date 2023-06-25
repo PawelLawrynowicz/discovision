@@ -1,7 +1,7 @@
 {
     "_allocate_inputs": 4,
     "_allocate_outputs": 4,
-    "cli_parameters": "generate --name face_detection -m C:/Users/hubert/STM32CubeIDE/workspace_1.10.0/camera_bsp_driver/quantized_model.tflite --type tflite --compression none --verbosity 1 --workspace C:\\Users\\hubert\\AppData\\Local\\Temp\\mxAI_workspace27792451801070011285900910263010960 --output C:\\Users\\hubert\\.stm32cubemx\\network_output --allocate-inputs --series stm32h7 --allocate-outputs",
+    "cli_parameters": "generate --name face_detection -m C:/Users/hubert/STM32CubeIDE/workspace_1.10.0/camera_bsp_driver/quantized_model.tflite --type tflite --compression none --verbosity 1 --workspace C:\\Users\\hubert\\AppData\\Local\\Temp\\mxAI_workspace2514610659744007409504022076469317 --output C:\\Users\\hubert\\.stm32cubemx\\network_output --allocate-inputs --series stm32h7 --allocate-outputs",
     "cli_version": {
         "major": 1,
         "micro": 0,
@@ -12,7 +12,7 @@
         "factor": null,
         "layers": {}
     },
-    "date_time": "Sun Jun 25 20:07:58 2023",
+    "date_time": "Sun Jun 25 12:46:02 2023",
     "error": 0,
     "error_str": [],
     "exec_cmd": "generate",

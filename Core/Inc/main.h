@@ -277,10 +277,11 @@ void Error_Handler(void);
 /* USER CODE BEGIN Private defines */
 #define LTDC_HEIGHT 272
 #define LTDC_WIDTH 480
+#define RESCALED_IMG 192
 #define CROSSHAIR_SIZE 15
 #define GRID_SIZE 12
 #define THRESHOLD 0.05
-#define COLOR 0xF000F00
+#define COLOR 0xFF00
 #define CAMERA_BUFFER 0xD0000000
 #define CAMERA_BUFFER_SIZE 0x5FA00
 #define LCD_BUFFER 0xD005FA00
