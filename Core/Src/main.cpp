@@ -53,26 +53,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-#define OV5640_address 0x78
 
 __IO uint32_t camera_frame_ready = 0;
-
-float probabilites[GRID_SIZE*GRID_SIZE*2] = {
-		1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
-	     1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
-	     1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
-	     1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
-	     1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
-	     1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,
-		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
-		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
-		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
-		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
-		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
-		 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
-
-
-};
 
 uint32_t rescaledImg[RESCALED_IMG*RESCALED_IMG];
 /* USER CODE END PV */
@@ -139,7 +121,7 @@ int main(void)
         Error_Handler();
     }
     HAL_Delay(1000);
-    //  buffer[5460] = 255;
+
     LTDC_Init_from_buffer((uint32_t *)LCD_BUFFER);
 
   /* USER CODE END 2 */
@@ -174,7 +156,6 @@ int main(void)
 //        }
 //        printf("end image");
         MX_X_CUBE_AI_Process((uint32_t *)LCD_BUFFER, (uint32_t*)rescaledImg);
-  	  	//postProcess((uint32_t *)LCD_BUFFER, LTDC_WIDTH, LTDC_HEIGHT, 96, 96, GRID_SIZE, probabilites);
 
         HAL_GPIO_TogglePin(USER_LED1_GPIO_Port, USER_LED1_Pin);
     }

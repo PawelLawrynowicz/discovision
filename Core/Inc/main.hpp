@@ -288,6 +288,10 @@ void Error_Handler(void);
 #define CAMERA_BUFFER_SIZE 0x5FA00
 #define LCD_BUFFER 0xD005FA00
 #define LCD_BUFFER_SIZE 0x7F800
+#define PRED_TENSOR_LENGTH 38300 //40
+#define CONFIDENCE_THRESHOLD 0.8
+#define IOU_THRESHOLD 0.3
+#define OV5640_address 0x78
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

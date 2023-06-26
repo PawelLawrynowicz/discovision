@@ -23,27 +23,27 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
   9 .ARM.attributes 0000002e  00000000  00000000  000b8248  2**0
                   CONTENTS, READONLY
- 10 .debug_info   00041571  00000000  00000000  000b8276  2**0
+ 10 .debug_info   0004154c  00000000  00000000  000b8276  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 11 .debug_abbrev 00007400  00000000  00000000  000f97e7  2**0
+ 11 .debug_abbrev 000073f7  00000000  00000000  000f97c2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 12 .debug_aranges 00002060  00000000  00000000  00100be8  2**3
+ 12 .debug_aranges 00002060  00000000  00000000  00100bc0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_ranges 00001dc8  00000000  00000000  00102c48  2**3
+ 13 .debug_ranges 00001dc8  00000000  00000000  00102c20  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_macro  0004196b  00000000  00000000  00104a10  2**0
+ 14 .debug_macro  00041969  00000000  00000000  001049e8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_line   00035136  00000000  00000000  0014637b  2**0
+ 15 .debug_line   00035136  00000000  00000000  00146351  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_str    00173d9b  00000000  00000000  0017b4b1  2**0
+ 16 .debug_str    00173d8e  00000000  00000000  0017b487  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .comment      00000050  00000000  00000000  002ef24c  2**0
+ 17 .comment      00000050  00000000  00000000  002ef215  2**0
                   CONTENTS, READONLY
- 18 .debug_frame  000093a8  00000000  00000000  002ef29c  2**2
+ 18 .debug_frame  000093a8  00000000  00000000  002ef268  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .stab         00000054  00000000  00000000  002f8644  2**2
+ 19 .stab         00000054  00000000  00000000  002f8610  2**2
                   CONTENTS, READONLY, DEBUGGING
- 20 .stabstr      000000ac  00000000  00000000  002f8698  2**0
+ 20 .stabstr      000000ac  00000000  00000000  002f8664  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -3253,7 +3253,7 @@ __STATIC_FORCEINLINE void __DSB(void)
     HAL_Delay(1000);
  8001924:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8001928:	f005 f80a 	bl	8006940 <HAL_Delay>
-    //  buffer[5460] = 255;
+
     LTDC_Init_from_buffer((uint32_t *)LCD_BUFFER);
  800192c:	4819      	ldr	r0, [pc, #100]	; (8001994 <main+0x1bc>)
  800192e:	f7ff ff0f 	bl	8001750 <LTDC_Init_from_buffer>
@@ -3308,7 +3308,6 @@ __STATIC_FORCEINLINE void __DSB(void)
  800197a:	4908      	ldr	r1, [pc, #32]	; (800199c <main+0x1c4>)
  800197c:	4805      	ldr	r0, [pc, #20]	; (8001994 <main+0x1bc>)
  800197e:	f010 fa29 	bl	8011dd4 <_Z20MX_X_CUBE_AI_ProcessPmS_>
-  	  	//postProcess((uint32_t *)LCD_BUFFER, LTDC_WIDTH, LTDC_HEIGHT, 96, 96, GRID_SIZE, probabilites);
 
         HAL_GPIO_TogglePin(USER_LED1_GPIO_Port, USER_LED1_Pin);
  8001982:	f44f 6100 	mov.w	r1, #2048	; 0x800
