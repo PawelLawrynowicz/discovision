@@ -1,4 +1,0 @@
-main.cpp:77:5:int main()	8
-main.cpp:179:6:void SystemClock_Config()	4
-main.cpp:245:6:void BSP_CAMERA_FrameEventCallback(uint32_t)	1
-main.cpp:255:6:void Error_Handler()	1

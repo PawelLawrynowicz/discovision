@@ -1,3 +1,0 @@
-dcmi.c:31:6:MX_DCMI_Init	2
-dcmi.c:67:6:HAL_DCMI_MspInit	3
-dcmi.c:160:6:HAL_DCMI_MspDeInit	2
