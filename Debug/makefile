@@ -9,12 +9,25 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include X-CUBE-AI/App/subdir.mk
 -include Drivers/STM32H7xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(strip $(CC_DEPS)),)
+-include $(CC_DEPS)
+endif
+ifneq ($(strip $(C++_DEPS)),)
+-include $(C++_DEPS)
+endif
+ifneq ($(strip $(C_UPPER_DEPS)),)
+-include $(C_UPPER_DEPS)
+endif
+ifneq ($(strip $(CXX_DEPS)),)
+-include $(CXX_DEPS)
+endif
 ifneq ($(strip $(S_DEPS)),)
 -include $(S_DEPS)
 endif
@@ -23,6 +36,9 @@ ifneq ($(strip $(S_UPPER_DEPS)),)
 endif
 ifneq ($(strip $(C_DEPS)),)
 -include $(C_DEPS)
+endif
+ifneq ($(strip $(CPP_DEPS)),)
+-include $(CPP_DEPS)
 endif
 endif
 
@@ -61,7 +77,11 @@ main-build: camera_bsp_driver.elf secondary-outputs
 
 # Tool invocations
 camera_bsp_driver.elf camera_bsp_driver.map: $(OBJS) $(USER_OBJS) C:\Users\hubert\STM32CubeIDE\workspace_1.10.0\camera_bsp_driver\STM32H7B3LIHXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+<<<<<<< HEAD
 	arm-none-eabi-gcc -o "camera_bsp_driver.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\hubert\STM32CubeIDE\workspace_1.10.0\camera_bsp_driver\STM32H7B3LIHXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="camera_bsp_driver.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+=======
+	arm-none-eabi-g++ -o "camera_bsp_driver.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\hubert\STM32CubeIDE\workspace_1.10.0\camera_bsp_driver\STM32H7B3LIHXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="camera_bsp_driver.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+>>>>>>> origin/add-model
 	@echo 'Finished building target: $@'
 	@echo ' '
 

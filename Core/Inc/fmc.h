@@ -20,12 +20,13 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __FMC_H
 #define __FMC_H
+
 #ifdef __cplusplus
  extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include <main.hpp>
 
 /* USER CODE BEGIN Includes */
 

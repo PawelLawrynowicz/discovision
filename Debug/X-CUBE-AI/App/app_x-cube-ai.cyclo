@@ -1,0 +1,7 @@
+app_x-cube-ai.cpp:101:13:void ai_log_err(ai_error, const char*)	2
+app_x-cube-ai.cpp:114:12:int ai_boostrap(void**)	4
+app_x-cube-ai.cpp:157:12:int ai_run()	2
+app_x-cube-ai.cpp:172:5:int acquire_and_process_data(ai_i8**)	1
+app_x-cube-ai.cpp:184:5:int post_process(ai_i8**)	1
+app_x-cube-ai.cpp:199:6:void MX_X_CUBE_AI_Init()	1
+app_x-cube-ai.cpp:208:6:void MX_X_CUBE_AI_Process(uint32_t*, uint32_t*)	3
