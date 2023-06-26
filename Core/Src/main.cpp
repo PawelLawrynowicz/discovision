@@ -128,6 +128,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+    uint32_t curr_buffer = LCD_BUFFER;
 
     while (1) {
     	// make photo
@@ -136,10 +137,10 @@ int main(void)
         };
         BSP_CAMERA_Stop(0);
         // process photo
-        DMA2D_Convert((uint32_t *)CAMERA_BUFFER, (uint32_t *)LCD_BUFFER);
+        DMA2D_Convert((uint32_t *)CAMERA_BUFFER, (uint32_t *)curr_buffer);
 
         // rescale
-        rescale_Image((uint32_t*)LCD_BUFFER, (uint32_t*)rescaledImg, (uint32_t)LTDC_WIDTH, (uint32_t)LTDC_HEIGHT, (uint32_t)RESCALED_IMG, (uint32_t)RESCALED_IMG);
+        rescale_Image((uint32_t*)curr_buffer, (uint32_t*)rescaledImg, (uint32_t)LTDC_WIDTH, (uint32_t)LTDC_HEIGHT, (uint32_t)RESCALED_IMG, (uint32_t)RESCALED_IMG);
 
     /* USER CODE END WHILE */
 
@@ -155,9 +156,18 @@ int main(void)
 //        	printf("%u, %u, %u,", (uint8_t)((*(lcd_ptr+i)&0xff0000)>>16), (uint8_t)((*(lcd_ptr+i)&0xff00)>>8), (uint8_t)(*(lcd_ptr+i)&0xff));
 //        }
 //        printf("end image");
-        MX_X_CUBE_AI_Process((uint32_t *)LCD_BUFFER, (uint32_t*)rescaledImg);
+        MX_X_CUBE_AI_Process((uint32_t *)curr_buffer, (uint32_t*)rescaledImg);
 
         HAL_GPIO_TogglePin(USER_LED1_GPIO_Port, USER_LED1_Pin);
+
+        if(curr_buffer == LCD_BUFFER){
+        	LTDC_Init_from_buffer((uint32_t*) curr_buffer);
+        	curr_buffer = LCD_BUFFER_2;
+        } else {
+        	LTDC_Init_from_buffer((uint32_t*)curr_buffer);
+        	curr_buffer = LCD_BUFFER;
+        }
+
     }
   /* USER CODE END 3 */
 }
