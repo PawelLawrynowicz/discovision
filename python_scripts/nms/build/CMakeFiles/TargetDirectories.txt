@@ -1,0 +1,3 @@
+/home/pwl/CLionProjects/discovision/python_scripts/nms/build/CMakeFiles/nms.dir
+/home/pwl/CLionProjects/discovision/python_scripts/nms/build/CMakeFiles/edit_cache.dir
+/home/pwl/CLionProjects/discovision/python_scripts/nms/build/CMakeFiles/rebuild_cache.dir
