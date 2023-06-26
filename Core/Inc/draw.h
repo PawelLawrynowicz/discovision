@@ -6,7 +6,7 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include <main.hpp>
 
 void drawVLine(uint32_t *buffer, int32_t x, int32_t y_start, int32_t y_end);
 void drawHLine(uint32_t *buffer, int32_t x_start, int32_t x_end, int32_t y);

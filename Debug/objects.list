@@ -8,6 +8,7 @@
 "./Core/Src/img_utils.o"
 "./Core/Src/ltdc.o"
 "./Core/Src/main.o"
+"./Core/Src/nms.o"
 "./Core/Src/ov5640.o"
 "./Core/Src/ov5640_reg.o"
 "./Core/Src/process.o"

@@ -1,5 +1,5 @@
-Core/Src/draw.o: ../Core/Src/draw.c ../Core/Inc/draw.h ../Core/Inc/main.h \
- ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
+Core/Src/draw.o: ../Core/Src/draw.c ../Core/Inc/draw.h \
+ ../Core/Inc/main.hpp ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h \
@@ -45,7 +45,7 @@ Core/Src/draw.o: ../Core/Src/draw.c ../Core/Inc/draw.h ../Core/Inc/main.h \
  ../Core/Inc/ov5640_reg.h ../Drivers/CMSIS/Include/cmsis_compiler.h \
  ../Core/Inc/camera.h
 ../Core/Inc/draw.h:
-../Core/Inc/main.h:
+../Core/Inc/main.hpp:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 ../Core/Inc/stm32h7xx_hal_conf.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:

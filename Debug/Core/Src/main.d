@@ -1,4 +1,5 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+Core/Src/main.o: ../Core/Src/main.cpp ../X-CUBE-AI/App/app_x-cube-ai.hpp \
+ ../Middlewares/ST/AI/Inc/ai_platform.h ../Core/Inc/main.hpp \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
@@ -43,14 +44,15 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/stm32h7b3i_discovery_errno.h \
  ../Core/Inc/stm32h7b3i_discovery_conf.h ../Core/Inc/ov5640.h \
  ../Core/Inc/ov5640_reg.h ../Drivers/CMSIS/Include/cmsis_compiler.h \
- ../Core/Inc/camera.h ../Core/Inc/crc.h ../Core/Inc/main.h \
- ../Core/Inc/dcmi.h ../Core/Inc/dma.h ../Core/Inc/dma2d.h \
- ../Core/Inc/ltdc.h ../Core/Inc/rtc.h ../Core/Inc/usart.h \
- ../Core/Inc/gpio.h ../Core/Inc/fmc.h ../X-CUBE-AI/App/app_x-cube-ai.h \
- ../Middlewares/ST/AI/Inc/ai_platform.h ../Core/Inc/draw.h \
- ../Core/Inc/retarget.h ../Core/Inc/img_utils.h ../Core/Inc/process.h \
- ../Core/Inc/draw.h
-../Core/Inc/main.h:
+ ../Core/Inc/camera.h ../Core/Inc/process.hpp ../Core/Inc/draw.h \
+ ../Core/Inc/nms.hpp ../Core/Inc/img_utils.hpp ../Core/Inc/main.hpp \
+ ../Core/Inc/crc.h ../Core/Inc/dcmi.h ../Core/Inc/dma.h \
+ ../Core/Inc/dma2d.h ../Core/Inc/ltdc.h ../Core/Inc/rtc.h \
+ ../Core/Inc/usart.h ../Core/Inc/gpio.h ../Core/Inc/fmc.h \
+ ../Core/Inc/retarget.h
+../X-CUBE-AI/App/app_x-cube-ai.hpp:
+../Middlewares/ST/AI/Inc/ai_platform.h:
+../Core/Inc/main.hpp:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
 ../Core/Inc/stm32h7xx_hal_conf.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h:
@@ -98,8 +100,12 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/ov5640_reg.h:
 ../Drivers/CMSIS/Include/cmsis_compiler.h:
 ../Core/Inc/camera.h:
+../Core/Inc/process.hpp:
+../Core/Inc/draw.h:
+../Core/Inc/nms.hpp:
+../Core/Inc/img_utils.hpp:
+../Core/Inc/main.hpp:
 ../Core/Inc/crc.h:
-../Core/Inc/main.h:
 ../Core/Inc/dcmi.h:
 ../Core/Inc/dma.h:
 ../Core/Inc/dma2d.h:
@@ -108,10 +114,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/usart.h:
 ../Core/Inc/gpio.h:
 ../Core/Inc/fmc.h:
-../X-CUBE-AI/App/app_x-cube-ai.h:
-../Middlewares/ST/AI/Inc/ai_platform.h:
-../Core/Inc/draw.h:
 ../Core/Inc/retarget.h:
-../Core/Inc/img_utils.h:
-../Core/Inc/process.h:
-../Core/Inc/draw.h:

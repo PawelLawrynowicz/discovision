@@ -1,7 +1,7 @@
-../X-CUBE-AI/App/app_x-cube-ai.c:101:13:ai_log_err	16	static
-../X-CUBE-AI/App/app_x-cube-ai.c:114:12:ai_boostrap	32	static
-../X-CUBE-AI/App/app_x-cube-ai.c:157:12:ai_run	16	static
-../X-CUBE-AI/App/app_x-cube-ai.c:172:5:acquire_and_process_data	16	static
-../X-CUBE-AI/App/app_x-cube-ai.c:184:5:post_process	16	static
-../X-CUBE-AI/App/app_x-cube-ai.c:199:6:MX_X_CUBE_AI_Init	8	static
-../X-CUBE-AI/App/app_x-cube-ai.c:208:6:MX_X_CUBE_AI_Process	263848	static
+../X-CUBE-AI/App/app_x-cube-ai.cpp:101:13:void ai_log_err(ai_error, const char*)	16	static
+../X-CUBE-AI/App/app_x-cube-ai.cpp:114:12:int ai_boostrap(void**)	32	static
+../X-CUBE-AI/App/app_x-cube-ai.cpp:157:12:int ai_run()	16	static
+../X-CUBE-AI/App/app_x-cube-ai.cpp:172:5:int acquire_and_process_data(ai_i8**)	16	static
+../X-CUBE-AI/App/app_x-cube-ai.cpp:184:5:int post_process(ai_i8**)	16	static
+../X-CUBE-AI/App/app_x-cube-ai.cpp:199:6:void MX_X_CUBE_AI_Init()	8	static
+../X-CUBE-AI/App/app_x-cube-ai.cpp:208:6:void MX_X_CUBE_AI_Process(uint32_t*, uint32_t*)	263816	static
