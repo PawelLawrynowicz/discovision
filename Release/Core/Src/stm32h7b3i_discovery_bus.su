@@ -1,9 +1,0 @@
-../Core/Src/stm32h7b3i_discovery_bus.c:237:9:BSP_I2C4_DeInit	8	static
-../Core/Src/stm32h7b3i_discovery_bus.c:265:26:MX_I2C4_Init	8	static
-../Core/Src/stm32h7b3i_discovery_bus.c:186:9:BSP_I2C4_Init	112	static
-../Core/Src/stm32h7b3i_discovery_bus.c:311:9:BSP_I2C4_WriteReg	24	static
-../Core/Src/stm32h7b3i_discovery_bus.c:348:9:BSP_I2C4_ReadReg	24	static
-../Core/Src/stm32h7b3i_discovery_bus.c:385:9:BSP_I2C4_WriteReg16	24	static
-../Core/Src/stm32h7b3i_discovery_bus.c:422:9:BSP_I2C4_ReadReg16	24	static
-../Core/Src/stm32h7b3i_discovery_bus.c:458:9:BSP_I2C4_IsReady	8	static
-../Core/Src/stm32h7b3i_discovery_bus.c:480:9:BSP_GetTick	0	static
