@@ -1,10 +1,4 @@
 draw.c:4:6:drawVLine	4
-<<<<<<< HEAD
-draw.c:20:6:drawHLine	4
-draw.c:38:6:drawRectangle	1
-draw.c:45:6:drawCrosshair	1
-=======
 draw.c:15:6:drawHLine	4
 draw.c:28:6:drawRectangle	1
 draw.c:35:6:drawCrosshair	1
->>>>>>> origin/add-model

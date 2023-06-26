@@ -77,11 +77,7 @@ main-build: camera_bsp_driver.elf secondary-outputs
 
 # Tool invocations
 camera_bsp_driver.elf camera_bsp_driver.map: $(OBJS) $(USER_OBJS) C:\Users\hubert\STM32CubeIDE\workspace_1.10.0\camera_bsp_driver\STM32H7B3LIHXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-<<<<<<< HEAD
-	arm-none-eabi-gcc -o "camera_bsp_driver.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\hubert\STM32CubeIDE\workspace_1.10.0\camera_bsp_driver\STM32H7B3LIHXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="camera_bsp_driver.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-=======
 	arm-none-eabi-g++ -o "camera_bsp_driver.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\hubert\STM32CubeIDE\workspace_1.10.0\camera_bsp_driver\STM32H7B3LIHXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="camera_bsp_driver.map" -Wl,--gc-sections -static -L../Middlewares/ST/AI/Lib --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
->>>>>>> origin/add-model
 	@echo 'Finished building target: $@'
 	@echo ' '
 

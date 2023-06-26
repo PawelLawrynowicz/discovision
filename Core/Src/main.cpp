@@ -136,7 +136,7 @@ int main(void)
         };
         BSP_CAMERA_Stop(0);
         // process photo
-        DMA2D_Convert((uint8_t *)CAMERA_BUFFER, (uint32_t *)LCD_BUFFER);
+        DMA2D_Convert((uint32_t *)CAMERA_BUFFER, (uint32_t *)LCD_BUFFER);
 
         // rescale
         rescale_Image((uint32_t*)LCD_BUFFER, (uint32_t*)rescaledImg, (uint32_t)LTDC_WIDTH, (uint32_t)LTDC_HEIGHT, (uint32_t)RESCALED_IMG, (uint32_t)RESCALED_IMG);

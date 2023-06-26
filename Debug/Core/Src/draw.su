@@ -1,4 +1,4 @@
 ../Core/Src/draw.c:4:6:drawVLine	32	static
-../Core/Src/draw.c:20:6:drawHLine	32	static
-../Core/Src/draw.c:38:6:drawRectangle	24	static
-../Core/Src/draw.c:45:6:drawCrosshair	24	static
+../Core/Src/draw.c:15:6:drawHLine	32	static
+../Core/Src/draw.c:28:6:drawRectangle	24	static
+../Core/Src/draw.c:35:6:drawCrosshair	24	static
