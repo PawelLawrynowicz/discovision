@@ -59,7 +59,6 @@ std::vector<T_PRED> nms(float *predictions) {
             float iou = calculate_iou(best_box, accepted_boxes[i]);
             if (iou >= IOU_THRESHOLD) {
                 int index_to_remove = accepted_boxes.size() - 1 - kept_boxes;
-
                 // erase might be slow
                 accepted_boxes.erase(accepted_boxes.begin() + index_to_remove);
             } else {
