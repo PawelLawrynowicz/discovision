@@ -7,7 +7,7 @@
 
 #ifndef INC_IMG_UTILS_HPP_
 #define INC_IMG_UTILS_HPP_
-#include "main.hpp"
+#include <main.hpp>
 
 void rescale_Image(uint32_t *srcImg,uint32_t *dstImg, uint32_t srcWidth, uint32_t srcHeight, uint32_t dstWidth, uint32_t dstHeight);
 

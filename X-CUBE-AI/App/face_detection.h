@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    face_detection.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Sun Jun 25 20:07:58 2023
+  * @date    Tue Jun 27 20:04:42 2023
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -25,7 +25,7 @@
 
 /******************************************************************************/
 #define AI_FACE_DETECTION_MODEL_NAME          "face_detection"
-#define AI_FACE_DETECTION_ORIGIN_MODEL_NAME   "quantized_model"
+#define AI_FACE_DETECTION_ORIGIN_MODEL_NAME   "quantized_model_122it"
 
 /******************************************************************************/
 #define AI_FACE_DETECTION_ACTIVATIONS_ALIGNMENT   (4)

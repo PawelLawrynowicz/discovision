@@ -1011,7 +1011,7 @@ STMicroelectronics.X-CUBE-AI.8.0.0.ModelMacc-272fd21c94214a2785b823dab08422d9cb7
 STMicroelectronics.X-CUBE-AI.8.0.0.ModelName-272fd21c94214a2785b823dab08422d9cb7c79724c26d104a3e426833abdfe55=face_detection
 STMicroelectronics.X-CUBE-AI.8.0.0.ModelNameList=face_detection
 STMicroelectronics.X-CUBE-AI.8.0.0.ModelRamOccupation-272fd21c94214a2785b823dab08422d9cb7c79724c26d104a3e426833abdfe55=234704
-STMicroelectronics.X-CUBE-AI.8.0.0.ModelStructureFile-272fd21c94214a2785b823dab08422d9cb7c79724c26d104a3e426833abdfe55=quantized_model.tflite
+STMicroelectronics.X-CUBE-AI.8.0.0.ModelStructureFile-272fd21c94214a2785b823dab08422d9cb7c79724c26d104a3e426833abdfe55=quantized_model_122it.tflite
 STMicroelectronics.X-CUBE-AI.8.0.0.ModelType-272fd21c94214a2785b823dab08422d9cb7c79724c26d104a3e426833abdfe55=STM32Cube.AI runtime
 STMicroelectronics.X-CUBE-AI.8.0.0.ReadyForCodeGeneration=true
 STMicroelectronics.X-CUBE-AI.8.0.0.StackSize=0x800

@@ -1,35 +1,35 @@
 Neural Network Tools for STM32AI v1.7.0 (STM.ai v8.0.0-19389)
-Created date          : 2023-06-25 20:07:59
-Parameters            : generate --name face_detection -m C:/Users/hubert/STM32CubeIDE/workspace_1.10.0/camera_bsp_driver/quantized_model.tflite --type tflite --compression none --verbosity 1 --workspace C:\Users\hubert\AppData\Local\Temp\mxAI_workspace27792451801070011285900910263010960 --output C:\Users\hubert\.stm32cubemx\network_output --allocate-inputs --series stm32h7 --allocate-outputs
+Created date          : 2023-06-27 20:04:46
+Parameters            : generate --name face_detection -m C:/Users/hubert/STM32CubeIDE/workspace_1.10.0/camera_bsp_driver/quantized_model_122it.tflite --type tflite --compression none --verbosity 1 --workspace C:\Users\hubert\AppData\Local\Temp\mxAI_workspace45056757459090014781045699324543435 --output C:\Users\hubert\.stm32cubemx\network_output --allocate-inputs --series stm32h7 --allocate-outputs
 
 Exec/report summary (generate)
-----------------------------------------------------------------------------------------------------------------
-model file         :   C:\Users\hubert\STM32CubeIDE\workspace_1.10.0\camera_bsp_driver\quantized_model.tflite   
-type               :   tflite                                                                                   
-c_name             :   face_detection                                                                           
-compression        :   none                                                                                     
-options            :   allocate-inputs, allocate-outputs                                                        
-optimization       :   balanced                                                                                 
-target/series      :   stm32h7                                                                                  
-workspace dir      :   C:\Users\hubert\AppData\Local\Temp\mxAI_workspace27792451801070011285900910263010960     
-output dir         :   C:\Users\hubert\.stm32cubemx\network_output                                              
-model_fmt          :   ss/sa per-channel                                                                        
-model_name         :   quantized_model                                                                          
-model_hash         :   ff578977175cdf34fbf6582ccff9a583                                                         
-params #           :   436,590 items (438.28 KiB)                                                               
-----------------------------------------------------------------------------------------------------------------
-input 1/1          :   'serving_default_input_10' (domain:activations/**default**)                              
-                   :   110592 items, 108.00 KiB, ai_u8, s=0.00784314, zp=127, (1,192,192,3)                     
-output 1/1         :   'conversion_151' (domain:activations/**default**)                                        
-                   :   38300 items, 149.61 KiB, ai_float, float, (1,3830,1,10)                                  
-macc               :   40,573,698                                                                               
-weights (ro)       :   448,800 B (438.28 KiB) (1 segment) / -1,297,560(-74.3%) vs float model                   
-activations (rw)   :   200,292 B (195.60 KiB) (1 segment) *                                                     
-ram (total)        :   200,292 B (195.60 KiB) = 200,292 + 0 + 0                                                 
-----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------
+model file         :   C:\Users\hubert\STM32CubeIDE\workspace_1.10.0\camera_bsp_driver\quantized_model_122it.tflite   
+type               :   tflite                                                                                         
+c_name             :   face_detection                                                                                 
+compression        :   none                                                                                           
+options            :   allocate-inputs, allocate-outputs                                                              
+optimization       :   balanced                                                                                       
+target/series      :   stm32h7                                                                                        
+workspace dir      :   C:\Users\hubert\AppData\Local\Temp\mxAI_workspace45056757459090014781045699324543435           
+output dir         :   C:\Users\hubert\.stm32cubemx\network_output                                                    
+model_fmt          :   ss/sa per-channel                                                                              
+model_name         :   quantized_model_122it                                                                          
+model_hash         :   d65efc6a72ce114b68245579d22b2296                                                               
+params #           :   436,590 items (438.28 KiB)                                                                     
+----------------------------------------------------------------------------------------------------------------------
+input 1/1          :   'serving_default_input_10' (domain:activations/**default**)                                    
+                   :   110592 items, 108.00 KiB, ai_u8, s=0.00784314, zp=127, (1,192,192,3)                           
+output 1/1         :   'conversion_151' (domain:activations/**default**)                                              
+                   :   38300 items, 149.61 KiB, ai_float, float, (1,3830,1,10)                                        
+macc               :   40,573,698                                                                                     
+weights (ro)       :   448,800 B (438.28 KiB) (1 segment) / -1,297,560(-74.3%) vs float model                         
+activations (rw)   :   200,292 B (195.60 KiB) (1 segment) *                                                           
+ram (total)        :   200,292 B (195.60 KiB) = 200,292 + 0 + 0                                                       
+----------------------------------------------------------------------------------------------------------------------
 (*) 'input'/'output' buffers can be used from the activations buffer
 
-Model name - quantized_model ['serving_default_input_10'] ['conversion_151']
+Model name - quantized_model_122it ['serving_default_input_10'] ['conversion_151']
 ------ -------------------------------------------- ----------------------- --------------- ----------- -------------------------- --- ------------------ ------------------- -------------------------------------------- 
 m_id   layer (type,original)                        oshape                  param/size             macc               connected to   | c_size             c_macc              c_type                                       
 ------ -------------------------------------------- ----------------------- --------------- ----------- -------------------------- --- ------------------ ------------------- -------------------------------------------- 
@@ -258,7 +258,7 @@ model/c-model: macc=41,433,322/40,573,698 -859,624(-2.1%) weights=448,800/448,80
 
 Generated C-graph summary
 ------------------------------------------------------------------------------------------------------------------------
-model name            : quantized_model
+model name            : quantized_model_122it
 c-name                : face_detection
 c-node #              : 96
 c-array #             : 271
@@ -1036,99 +1036,99 @@ c_id    m_id   name (type)                                      #op           ty
 2       1      conv2d_1 (optimized_conv2d)                1,990,664     smul_s8_s8       224     0.2455 
 3       2      conv2d_2_pad_before (pad)                          0     smul_s8_s8           
 4       2      conv2d_2 (conv2d)                            663,560     smul_s8_s8        80     0.0125 
-5       3      conv2d_3 (conv2d)                          1,179,664     smul_s8_s8       144     0.2153 
+5       3      conv2d_3 (conv2d)                          1,179,664     smul_s8_s8       144     0.2708 
 6       5      conv2d_5_pad_before (pad)                          0     smul_s8_s8           
 7       4      conv2d_5 (conv2d)                            331,792     smul_s8_s8       160     0.0062 
-8       6      conv2d_6 (conv2d)                          1,179,680     smul_s8_s8       544     0.2243 
+8       6      conv2d_6 (conv2d)                          1,179,680     smul_s8_s8       544     0.2022 
 9       7      conv2d_7_pad_before (pad)                          0     smul_s8_s8           
-10      7      conv2d_7 (conv2d)                            663,584     smul_s8_s8       320     0.0219 
-11      8      conv2d_8 (conv2d)                          2,359,328     smul_s8_s8     1,056     0.1600 
+10      7      conv2d_7 (conv2d)                            663,584     smul_s8_s8       320     0.0188 
+11      8      conv2d_8 (conv2d)                          2,359,328     smul_s8_s8     1,056     0.1525 
 12      10     conv2d_10_pad_before (pad)                         0     smul_s8_s8           
-13      9      conv2d_10 (conv2d)                           165,920     smul_s8_s8       320     0.0031 
-14      11     conv2d_11 (conv2d)                         1,179,712     smul_s8_s8     2,112     0.0407 
+13      9      conv2d_10 (conv2d)                           165,920     smul_s8_s8       320     0.0000 
+14      11     conv2d_11 (conv2d)                         1,179,712     smul_s8_s8     2,112     0.0440 
 15      12     conv2d_12_pad_before (pad)                         0     smul_s8_s8           
-16      12     conv2d_12 (conv2d)                           331,840     smul_s8_s8       640     0.0141 
-17      13     conv2d_13 (conv2d)                         2,359,360     smul_s8_s8     4,160     0.0231 
+16      12     conv2d_12 (conv2d)                           331,840     smul_s8_s8       640     0.0125 
+17      13     conv2d_13 (conv2d)                         2,359,360     smul_s8_s8     4,160     0.0202 
 18      16     conv2d_16_pad_before (pad)                         0     smul_s8_s8           
 19      15     conv2d_16 (conv2d)                            83,008     smul_s8_s8       640     0.0000 
-20      17     conv2d_17 (conv2d)                         1,179,776     smul_s8_s8     8,320     0.0190 
+20      17     conv2d_17 (conv2d)                         1,179,776     smul_s8_s8     8,320     0.0201 
 21      18     conv2d_18_pad_before (pad)                         0     smul_s8_s8           
-22      18     conv2d_18 (conv2d)                           166,016     smul_s8_s8     1,280     0.0164 
-23      19     conv2d_19 (conv2d)                         2,359,424     smul_s8_s8    16,512     0.0186 
+22      18     conv2d_18 (conv2d)                           166,016     smul_s8_s8     1,280     0.0156 
+23      19     conv2d_19 (conv2d)                         2,359,424     smul_s8_s8    16,512     0.0171 
 24      20     conv2d_20_pad_before (pad)                         0     smul_s8_s8           
-25      20     conv2d_20 (conv2d)                           166,016     smul_s8_s8     1,280     0.0094 
-26      21     conv2d_21 (conv2d)                         2,359,424     smul_s8_s8    16,512     0.0159 
+25      20     conv2d_20 (conv2d)                           166,016     smul_s8_s8     1,280     0.0141 
+26      21     conv2d_21 (conv2d)                         2,359,424     smul_s8_s8    16,512     0.0128 
 27      22     conv2d_22_pad_before (pad)                         0     smul_s8_s8           
-28      22     conv2d_22 (conv2d)                           166,016     smul_s8_s8     1,280     0.0141 
-29      23     conv2d_23 (conv2d)                         2,359,424     smul_s8_s8    16,512     0.0145 
+28      22     conv2d_22 (conv2d)                           166,016     smul_s8_s8     1,280     0.0055 
+29      23     conv2d_23 (conv2d)                         2,359,424     smul_s8_s8    16,512     0.0124 
 30      24     conv2d_24_pad_before (pad)                         0     smul_s8_s8           
-31      24     conv2d_24 (conv2d)                           166,016     smul_s8_s8     1,280     0.0188 
-32      25     conv2d_25 (conv2d)                         2,359,424     smul_s8_s8    16,512     0.0128 
+31      24     conv2d_24 (conv2d)                           166,016     smul_s8_s8     1,280     0.0109 
+32      25     conv2d_25 (conv2d)                         2,359,424     smul_s8_s8    16,512     0.0107 
 33      26     conv2d_26_pad_before (pad)                         0     smul_s8_s8           
-34      26     conv2d_26 (conv2d)                           166,016     smul_s8_s8     1,280     0.0078 
-35      27     conv2d_27 (conv2d)                         2,359,424     smul_s8_s8    16,512     0.0114 
+34      26     conv2d_26 (conv2d)                           166,016     smul_s8_s8     1,280     0.0070 
+35      27     conv2d_27 (conv2d)                         2,359,424     smul_s8_s8    16,512     0.0104 
 36      30     conv2d_30_pad_before (pad)                         0     smul_s8_s8           
-37      29     conv2d_30 (conv2d)                            41,600     smul_s8_s8     1,280     0.0000 
-38      31     conv2d_31 (conv2d)                         1,179,904     smul_s8_s8    33,024     0.0113 
+37      29     conv2d_30 (conv2d)                            41,600     smul_s8_s8     1,280     0.0031 
+38      31     conv2d_31 (conv2d)                         1,179,904     smul_s8_s8    33,024     0.0101 
 39      32     conv2d_32_pad_before (pad)                         0     smul_s8_s8           
-40      32     conv2d_32 (conv2d)                            83,200     smul_s8_s8     2,560     0.0020 
-41      33     conv2d_33 (conv2d)                         2,359,552     smul_s8_s8    65,792     0.0187 
+40      32     conv2d_32 (conv2d)                            83,200     smul_s8_s8     2,560     0.0012 
+41      33     conv2d_33 (conv2d)                         2,359,552     smul_s8_s8    65,792     0.0160 
 42      35     conv2d_35_pad_before (pad)                         0     smul_s8_s8           
-43      35     conv2d_35 (conv2d)                            20,992     smul_s8_s8     2,560     0.0094 
-44      36     conv2d_36 (conv2d)                           590,080     smul_s8_s8    65,792     0.0636 
+43      35     conv2d_35 (conv2d)                            20,992     smul_s8_s8     2,560     0.3402 
+44      36     conv2d_36 (conv2d)                           590,080     smul_s8_s8    65,792     0.8915 
 45      37     conv2d_37_pad_before (pad)                         0     smul_s8_s8           
-46      37     conv2d_37 (conv2d)                            20,992     smul_s8_s8     2,560     0.0059 
-47      38     conv2d_38 (conv2d)                           590,080     smul_s8_s8    65,792     0.2193 
+46      37     conv2d_37 (conv2d)                            20,992     smul_s8_s8     2,560     0.6969 
+47      38     conv2d_38 (conv2d)                           590,080     smul_s8_s8    65,792     0.8906 
 48      40     pool_40 (pool)                                 2,304       op_s8_s8           
-49      45     conv2d_45 (conv2d)                             8,224     smul_s8_s8     8,224     0.0113 
+49      45     conv2d_45 (conv2d)                             8,224     smul_s8_s8     8,224     0.4736 
 50      46     conv2d_46_pad_before (pad)                         0     smul_s8_s8           
-51      46     conv2d_46 (conv2d)                             2,890     smul_s8_s8     2,890     0.8865 
+51      46     conv2d_46 (conv2d)                             2,890     smul_s8_s8     2,890     0.8907 
 52      51     conv2d_51_pad_before (pad)                         0     smul_s8_s8           
-53      51     conv2d_51 (conv2d)                             5,780     smul_s8_s8     5,780     0.8858 
+53      51     conv2d_51 (conv2d)                             5,780     smul_s8_s8     5,780     0.9405 
 54      64     tile_64 (tile)                                     0     smul_s8_s8           
 55      65     pad_65 (pad)                                       0     smul_s8_s8           
-56      39     conv2d_39 (conv2d)                            73,760     smul_s8_s8     8,224     0.0091 
+56      39     conv2d_39 (conv2d)                            73,760     smul_s8_s8     8,224     0.4732 
 57      66     eltwise_66 (eltwise_integer)                     288     smul_s8_s8           
 58      66     eltwise_66_0_conversion (converter)              576    smul_s8_f32           
 59      85     upsample_85 (upsample)                         4,608   smul_f32_f32           
 60      85     upsample_85_0_conversion (converter)           2,304    smul_f32_s8           
 61      67     conv2d_67_pad_before (pad)                         0     smul_s8_s8           
-62      67     conv2d_67 (conv2d)                            51,860     smul_s8_s8     5,780     0.0099 
+62      67     conv2d_67 (conv2d)                            51,860     smul_s8_s8     5,780     0.0218 
 63      72     conv2d_72_pad_before (pad)                         0     smul_s8_s8           
-64      72     conv2d_72 (conv2d)                            25,930     smul_s8_s8     2,890     0.0163 
-65      34     conv2d_34 (conv2d)                           294,944     smul_s8_s8     8,224     0.0108 
+64      72     conv2d_72 (conv2d)                            25,930     smul_s8_s8     2,890     0.0391 
+65      34     conv2d_34 (conv2d)                           294,944     smul_s8_s8     8,224     0.0126 
 66      86     eltwise_86 (eltwise_integer)                   1,152     smul_s8_s8           
 67      86     eltwise_86_0_conversion (converter)            2,304    smul_s8_f32           
 68      105    upsample_105 (upsample)                       18,432   smul_f32_f32           
 69      105    upsample_105_0_conversion (converter)          9,216    smul_f32_s8           
 70      87     conv2d_87_pad_before (pad)                         0     smul_s8_s8           
-71      87     conv2d_87 (conv2d)                           103,690     smul_s8_s8     2,890     0.0104 
+71      87     conv2d_87 (conv2d)                           103,690     smul_s8_s8     2,890     0.0100 
 72      92     conv2d_92_pad_before (pad)                         0     smul_s8_s8           
-73      92     conv2d_92 (conv2d)                           207,380     smul_s8_s8     5,780     0.0104 
-74      28     conv2d_28 (conv2d)                           589,856     smul_s8_s8     4,128     0.0136 
+73      92     conv2d_92 (conv2d)                           207,380     smul_s8_s8     5,780     0.0133 
+74      28     conv2d_28 (conv2d)                           589,856     smul_s8_s8     4,128     0.0107 
 75      106    eltwise_106 (eltwise_integer)                  4,608     smul_s8_s8           
 76      106    eltwise_106_0_conversion (converter)           9,216    smul_s8_f32           
 77      125    upsample_125 (upsample)                       73,728   smul_f32_f32           
 78      125    upsample_125_0_conversion (converter)         36,864    smul_f32_s8           
 79      107    conv2d_107_pad_before (pad)                        0     smul_s8_s8           
-80      107    conv2d_107 (conv2d)                          414,730     smul_s8_s8     2,890     0.0097 
+80      107    conv2d_107 (conv2d)                          414,730     smul_s8_s8     2,890     0.0163 
 81      112    conv2d_112_pad_before (pad)                        0     smul_s8_s8           
-82      112    conv2d_112 (conv2d)                          829,460     smul_s8_s8     5,780     0.0074 
-83      14     conv2d_14 (conv2d)                         1,179,680     smul_s8_s8     2,080     0.0111 
+82      112    conv2d_112 (conv2d)                          829,460     smul_s8_s8     5,780     0.0118 
+83      14     conv2d_14 (conv2d)                         1,179,680     smul_s8_s8     2,080     0.0087 
 84      126    eltwise_126 (eltwise_integer)                 18,432     smul_s8_s8           
 85      127    conv2d_127_pad_before (pad)                        0     smul_s8_s8           
-86      127    conv2d_127 (conv2d)                        1,658,890     smul_s8_s8     2,890     0.0090 
+86      127    conv2d_127 (conv2d)                        1,658,890     smul_s8_s8     2,890     0.0118 
 87      132    concat_132 (concat)                                0       op_s8_s8           
 88      132    concat_132_0_conversion (converter)           15,320    smul_s8_f32           
 89      133    nl_133 (nl)                                  114,900     op_f32_f32           
 90      133    nl_133_0_conversion (converter)               15,320    smul_f32_s8           
 91      135    conv2d_135_pad_before (pad)                        0     smul_s8_s8           
-92      135    conv2d_135 (conv2d)                        3,317,780     smul_s8_s8     5,780     0.0071 
+92      135    conv2d_135 (conv2d)                        3,317,780     smul_s8_s8     5,780     0.0100 
 93      140    concat_140 (concat)                                0       op_s8_s8           
 94      150    concat_150 (concat)                                0       op_s8_s8           
 95      151    conversion_151 (converter)                    76,600    smul_s8_f32           
 ------- ------ --------------------------------------- ------------ -------------- --------- ---------- 
-total                                                    40,573,698                  421,270     0.0727 
+total                                                    40,573,698                  421,270     0.3315 
 
 Number of operation types
 ---------------- ------------ ----------- 

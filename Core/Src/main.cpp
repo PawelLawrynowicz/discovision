@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include <app_x-cube-ai.hpp>
 #include <img_utils.hpp>
+#include <main.hpp>
 #include "crc.h"
 #include "dcmi.h"
 #include "dma.h"
@@ -31,7 +32,6 @@
 #include "retarget.h"
 #include <stdio.h>
 #include <string.h>
-#include <main.hpp>
 #include <process.hpp>
 /* USER CODE END Includes */
 

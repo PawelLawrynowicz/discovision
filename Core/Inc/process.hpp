@@ -6,7 +6,7 @@
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include <main.hpp>
+#include <main.hPP>
 #include "draw.h"
 #include "nms.hpp"
 

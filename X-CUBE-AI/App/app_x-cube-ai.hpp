@@ -29,7 +29,7 @@
 void MX_X_CUBE_AI_Init(void);
 void MX_X_CUBE_AI_Process(uint32_t *buffer, uint32_t*rescaled_Img);
 /* USER CODE BEGIN includes */
-#include <main.hpp>
+#include <main.hPP>
 #include "process.hpp"
 /* USER CODE END includes */
 #ifdef __cplusplus
