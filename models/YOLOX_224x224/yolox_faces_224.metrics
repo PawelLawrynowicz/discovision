@@ -1,0 +1,35 @@
+2023-05-14 12:25:59 | INFO     | yolox.core.trainer:348 - 
+Average forward time: 1.30 ms, Average NMS time: 0.60 ms, Average inference time: 1.90 ms
+
+2023-05-14 12:25:59 | INFO     | yolox.core.trainer:359 - Save weights to ./YOLOX_outputs/yolox_voc_nano
+2023-05-14 12:25:59 | INFO     | yolox.core.trainer:359 - Save weights to ./YOLOX_outputs/yolox_voc_nano
+2023-05-14 12:25:59 | INFO     | yolox.core.trainer:195 - Training of experiment is done and the best AP is 13.49
+Writing face VOC results file
+Eval IoU : 0.50
+AP for face = 0.2904
+Mean AP = 0.2904
+~~~~~~~~
+Results:
+0.290
+0.290
+~~~~~~~~
+
+--------------------------------------------------------------
+Results computed with the **unofficial** Python eval code.
+Results should be very close to the official MATLAB eval code.
+Recompute with `./tools/reval.py --matlab ...` for your paper.
+-- Thanks, The Management
+--------------------------------------------------------------
+Eval IoU : 0.55
+Eval IoU : 0.60
+Eval IoU : 0.65
+Eval IoU : 0.70
+Eval IoU : 0.75
+Eval IoU : 0.80
+Eval IoU : 0.85
+Eval IoU : 0.90
+Eval IoU : 0.95
+--------------------------------------------------------------
+map_5095: 0.13426300146681105
+map_50: 0.2903778313453843
+--------------------------------------------------------------
