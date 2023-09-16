@@ -61,8 +61,6 @@ void DCMI_PSSI_IRQHandler(void);
 void LTDC_IRQHandler(void);
 void LTDC_ER_IRQHandler(void);
 void DMA2D_IRQHandler(void);
-void I2C4_EV_IRQHandler(void);
-void I2C4_ER_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

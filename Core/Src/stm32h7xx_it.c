@@ -18,7 +18,7 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include <main.hpp>
 #include "stm32h7xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -58,7 +58,6 @@
 extern DMA_HandleTypeDef hdma_dcmi;
 extern DCMI_HandleTypeDef hdcmi;
 extern DMA2D_HandleTypeDef hdma2d;
-extern I2C_HandleTypeDef hi2c4;
 extern LTDC_HandleTypeDef hltdc;
 extern UART_HandleTypeDef huart1;
 /* USER CODE BEGIN EV */
@@ -285,34 +284,6 @@ void DMA2D_IRQHandler(void)
   /* USER CODE BEGIN DMA2D_IRQn 1 */
 
   /* USER CODE END DMA2D_IRQn 1 */
-}
-
-/**
-  * @brief This function handles I2C4 event interrupt.
-  */
-void I2C4_EV_IRQHandler(void)
-{
-  /* USER CODE BEGIN I2C4_EV_IRQn 0 */
-
-  /* USER CODE END I2C4_EV_IRQn 0 */
-  HAL_I2C_EV_IRQHandler(&hi2c4);
-  /* USER CODE BEGIN I2C4_EV_IRQn 1 */
-
-  /* USER CODE END I2C4_EV_IRQn 1 */
-}
-
-/**
-  * @brief This function handles I2C4 error interrupt.
-  */
-void I2C4_ER_IRQHandler(void)
-{
-  /* USER CODE BEGIN I2C4_ER_IRQn 0 */
-
-  /* USER CODE END I2C4_ER_IRQn 0 */
-  HAL_I2C_ER_IRQHandler(&hi2c4);
-  /* USER CODE BEGIN I2C4_ER_IRQn 1 */
-
-  /* USER CODE END I2C4_ER_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
