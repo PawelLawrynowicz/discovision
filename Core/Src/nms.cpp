@@ -1,6 +1,8 @@
 #include <nms.hpp>
 
 float calculate_iou(std::array<float, 5> box1, std::array<float, 5> box2) {
+    // Calculating intersection over union of bounding boxes
+
     float x_min = std::max(box1[1], box2[1]);
     float y_min = std::max(box1[2], box2[2]);
     float x_max = std::min(box1[3], box2[3]);
@@ -23,6 +25,8 @@ bool compareByFirstElement(const std::array<float, 5> &a,
 }
 
 std::vector<T_PRED> nms(float *predictions) {
+    // Greedy implementation of non-max-suppression algorithm
+
     std::vector<T_PRED> accepted_boxes;
     std::vector<T_PRED> final_boxes;
 
@@ -51,7 +55,7 @@ std::vector<T_PRED> nms(float *predictions) {
             float iou = calculate_iou(best_box, accepted_boxes[i]);
             if (iou >= IOU_THRESHOLD) {
                 int index_to_remove = accepted_boxes.size() - 1 - kept_boxes;
-                // erase might be slow
+                // erase is not optimal but it was fastest to implement
                 accepted_boxes.erase(accepted_boxes.begin() + index_to_remove);
             } else {
                 kept_boxes++;

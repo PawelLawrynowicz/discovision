@@ -1,7 +1,7 @@
 #include "process.hpp"
 
 void postProcess(uint32_t* buffer, float *predictions){
-
+	// Post process a frame in the buffer, apply nms and draw boxes showing detections
 	std::vector<T_PRED> boxes = nms(predictions);
 
 	for(uint32_t i = 0; i<boxes.size(); i++){

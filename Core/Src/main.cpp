@@ -120,10 +120,10 @@ int main(void)
         BSP_ERROR_NONE) {
         Error_Handler();
     }
+    // Delay necessary in order for camera to initialize properly
     HAL_Delay(1000);
 
     LTDC_Init_from_buffer((uint32_t *)LCD_BUFFER);
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -131,31 +131,18 @@ int main(void)
     uint32_t curr_buffer = LCD_BUFFER;
 
     while (1) {
-    	// make photo
+    	  // Capture a frame
         BSP_CAMERA_Start(0, (uint8_t *)CAMERA_BUFFER, CAMERA_MODE_SNAPSHOT);
         while (camera_frame_ready == 0) {
         };
         BSP_CAMERA_Stop(0);
-        // process photo
+        // Process the frame
         DMA2D_Convert((uint32_t *)CAMERA_BUFFER, (uint32_t *)curr_buffer);
 
-        // rescale
+        // Rescale the frame to fit the LCD
         rescale_Image((uint32_t*)curr_buffer, (uint32_t*)rescaledImg, (uint32_t)LTDC_WIDTH, (uint32_t)LTDC_HEIGHT, (uint32_t)RESCALED_IMG, (uint32_t)RESCALED_IMG);
 
     /* USER CODE END WHILE */
-
-//  MX_X_CUBE_AI_Process();
-    /* USER CODE BEGIN 3 */
-//        uint32_t *lcd_ptr = (uint32_t *)LCD_BUFFER;
-//        uint32_t table[480*272]={0};
-//        for (int i = 0; i < 480*272; i++) {
-//            table[i] = *(lcd_ptr+i);
-//        }
-//        printf("image print start");
-//        for(uint64_t i = 0; i<LTDC_WIDTH*LTDC_HEIGHT; i++){
-//        	printf("%u, %u, %u,", (uint8_t)((*(lcd_ptr+i)&0xff0000)>>16), (uint8_t)((*(lcd_ptr+i)&0xff00)>>8), (uint8_t)(*(lcd_ptr+i)&0xff));
-//        }
-//        printf("end image");
         MX_X_CUBE_AI_Process((uint32_t *)curr_buffer, (uint32_t*)rescaledImg);
 
         HAL_GPIO_TogglePin(USER_LED1_GPIO_Port, USER_LED1_Pin);
